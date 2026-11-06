@@ -23,7 +23,7 @@ const Home = () => {
         {/* Restored Headline - Editorial Style */}
         <div className="z-10 text-center mb-24 mt-10">
           <h1 className="text-5xl md:text-7xl font-serif font-semibold tracking-widest uppercase text-white mb-6">
-            <span className="drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">Dollhouse</span> <span className="text-[#FF69B4] italic drop-shadow-[0_0_15px_rgba(255,105,180,0.5)]">Deviants</span>
+            <span className="glow-shift glow-white glow-s13">Dollhouse</span> <span className="text-[#FF69B4] italic glow-shift glow-pink glow-s13">Deviants</span>
           </h1>
           <p className="text-zinc-400 font-sans font-light text-sm tracking-[0.3em] uppercase">
             Select Your Experience
@@ -52,7 +52,7 @@ const Home = () => {
                 </div>
                 
                 <h2 className="text-2xl md:text-3xl font-serif font-light tracking-widest uppercase mb-3 text-white transition-colors duration-500" aria-hidden="true">
-                  <span className={`transition-all duration-300 drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]`}>{branch.name}</span>
+                  <span className={`transition-all duration-300 glow-shift glow-auto glow-s9`}>{branch.name}</span>
                 </h2>
                 
                 <p className="text-zinc-400 text-xs font-sans font-light tracking-[0.4em] uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-700 transform translate-y-4 group-hover:translate-y-0" aria-hidden="true">
@@ -74,7 +74,7 @@ const Home = () => {
         <section className="max-w-6xl mx-auto mb-32 z-10 relative px-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
             <div className="lg:col-span-5 space-y-8">
-              <h2 className="text-[#FF69B4] font-sans font-light tracking-[0.4em] uppercase text-xs">A Letter from Sonja</h2>
+              <h2 className="text-[#FF69B4] font-sans font-light tracking-[0.4em] uppercase text-xs glow-shift glow-pink glow-s5">A Letter from Sonja</h2>
               <h3 className="text-4xl md:text-5xl font-serif font-light italic leading-snug text-white">
                 "A Dollhouse is only a prison if you didn't <span className="text-[#FF69B4] drop-shadow-[0_0_15px_rgba(255,105,180,0.5)]">build it yourself</span>."
               </h3>
@@ -93,7 +93,7 @@ const Home = () => {
                 is a sanctuary for those who refuse to fit the mold.
               </p>
               <p className="font-serif italic text-white pt-6 text-xl flex items-center gap-2">
-                — <span className="signature-font text-[#FF69B4] text-3xl not-italic drop-shadow-[0_0_15px_rgba(255,105,180,0.5)] transform -translate-y-1">Sonja Kelley</span>, Founder & Lead Deviant
+                — <span className="signature-font text-[#FF69B4] text-3xl not-italic glow-shift glow-pink glow-s7 transform -translate-y-1">Sonja Kelley</span>, Founder & Lead Deviant
               </p>
             </div>
           </div>
