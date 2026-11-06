@@ -1167,3 +1167,288 @@ body.light-mode.cb-achromatopsia [class*="radial-gradient"] {
   outline: 3px solid var(--cb-ink) !important;
   outline-offset: 4px !important;
 }
+
+/* =========================================
+   PINSTRIPED GLOW — SHIFT INSIDE (SOP, 2026-11-06)
+   No outline, no blur, no fuzz, zero text-shadow.
+   The gradient is clipped INSIDE the letterforms, light source EAST /
+   sunrise, upper-right 45% (radial centre 72% / 26%), gleam inside on
+   the upper-right/east side, stepped darker bands behind it, shadow to
+   the lower-left/west. Stripe counts stay ODD: 5 small icons/small
+   text, 7-9 standard effects/shifting (9 vivid), 11/13 or more large
+   display type, scaling with size. The central/main stripe draws the
+   eye in to read. Body copy stays flat — glow is headings, wordmark
+   and key labels only.
+   Specimen-exact stops: white ivory #fffff0 -> Bristol #f8f8ff ->
+   gleaming #ffffff; neon pink #a31356 -> #e91a7c -> #FF1E89;
+   cyan #00707e -> #00c2dc -> #00E5FF. Other ramps use the same
+   5-layer, 0.25px-step, blur-0 parameters, derived from their bright.
+   Metal is 1px pinstripe only — there is deliberately NO metal glow
+   class here. Posh Variant A is NOT wired in (see PR #4).
+   This section is appended at the end of the file on purpose: PR #4
+   (posh-mature-app-palette) adds one @import at the top of this file,
+   so a merge with it should conflict only on that line, not here.
+   ========================================= */
+
+/* Base: apply the tier gradient, clipped inside the glyphs. */
+.glow-shift {
+  background-image: var(--glow-gradient, radial-gradient(circle at 72% 26%,
+    var(--glow-bright) 0 11.2%,
+    var(--glow-mid) 11.2% 22.3%,
+    var(--glow-dark) 22.3% 33.4%,
+    var(--glow-mid) 33.4% 44.5%,
+    var(--glow-bright) 44.5% 55.6%,
+    var(--glow-mid) 55.6% 66.7%,
+    var(--glow-dark) 66.7% 77.8%,
+    var(--glow-mid) 77.8% 88.9%,
+    var(--glow-bright) 88.9% 100%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none !important;
+  /* No animation: the shift is static, Safe Motion is unaffected. */
+}
+
+/* Fallback for browsers without background-clip:text: solid ink. */
+@supports not ((background-clip: text) or (-webkit-background-clip: text)) {
+  .glow-shift {
+    background-image: none;
+    color: var(--glow-ink, currentColor);
+    -webkit-text-fill-color: var(--glow-ink, currentColor);
+  }
+}
+
+/* Tier gradients: hard stepped bands, radial centre 72% / 26% (East).
+   Each tier references --glow-bright / --glow-mid / --glow-dark, so
+   tiers compose with any colour class. Default tier is s9. */
+.glow-s5 {
+  --glow-gradient: radial-gradient(circle at 72% 26%,
+    var(--glow-bright) 0 20%,
+    var(--glow-mid) 20% 40%,
+    var(--glow-dark) 40% 60%,
+    var(--glow-mid) 60% 80%,
+    var(--glow-bright) 80% 100%);
+}
+.glow-s7 {
+  --glow-gradient: radial-gradient(circle at 72% 26%,
+    var(--glow-bright) 0 14.3%,
+    var(--glow-mid) 14.3% 28.6%,
+    var(--glow-dark) 28.6% 42.9%,
+    var(--glow-mid) 42.9% 57.2%,
+    var(--glow-bright) 57.2% 71.5%,
+    var(--glow-mid) 71.5% 85.8%,
+    var(--glow-dark) 85.8% 100%);
+}
+.glow-s9,
+.glow-shift {
+  --glow-gradient: radial-gradient(circle at 72% 26%,
+    var(--glow-bright) 0 11.2%,
+    var(--glow-mid) 11.2% 22.3%,
+    var(--glow-dark) 22.3% 33.4%,
+    var(--glow-mid) 33.4% 44.5%,
+    var(--glow-bright) 44.5% 55.6%,
+    var(--glow-mid) 55.6% 66.7%,
+    var(--glow-dark) 66.7% 77.8%,
+    var(--glow-mid) 77.8% 88.9%,
+    var(--glow-bright) 88.9% 100%);
+}
+.glow-s11 {
+  --glow-gradient: radial-gradient(circle at 72% 26%,
+    var(--glow-bright) 0 9.1%,
+    var(--glow-mid) 9.1% 18.2%,
+    var(--glow-dark) 18.2% 27.3%,
+    var(--glow-mid) 27.3% 36.4%,
+    var(--glow-dark) 36.4% 45.5%,
+    var(--glow-bright) 45.5% 54.6%,
+    var(--glow-mid) 54.6% 63.7%,
+    var(--glow-dark) 63.7% 72.8%,
+    var(--glow-mid) 72.8% 81.9%,
+    var(--glow-bright) 81.9% 91%,
+    var(--glow-mid) 91% 100%);
+}
+.glow-s13 {
+  --glow-gradient: radial-gradient(circle at 72% 26%,
+    var(--glow-bright) 0 7.7%,
+    var(--glow-mid) 7.7% 15.4%,
+    var(--glow-dark) 15.4% 23.1%,
+    var(--glow-mid) 23.1% 30.8%,
+    var(--glow-dark) 30.8% 38.5%,
+    var(--glow-mid) 38.5% 46.2%,
+    var(--glow-bright) 46.2% 53.9%,
+    var(--glow-mid) 53.9% 61.6%,
+    var(--glow-dark) 61.6% 69.3%,
+    var(--glow-mid) 69.3% 77%,
+    var(--glow-bright) 77% 84.7%,
+    var(--glow-mid) 84.7% 92.4%,
+    var(--glow-dark) 92.4% 100%);
+}
+
+/* Specimen-exact colours (dark = innermost, bright = outermost gleam). */
+.glow-white {
+  --glow-dark: #fffff0; --glow-mid: #f8f8ff; --glow-bright: #ffffff; --glow-ink: #ffffff;
+}
+.glow-pink,
+.glow-neon-pink {
+  --glow-dark: #a31356; --glow-mid: #e91a7c; --glow-bright: #FF1E89; --glow-ink: #FF1E89;
+}
+.glow-cyan {
+  --glow-dark: #00707e; --glow-mid: #00c2dc; --glow-bright: #00E5FF; --glow-ink: #00E5FF;
+}
+/* Derived ramps, same parameters as the specimens. */
+.glow-green {
+  --glow-dark: #1f7a0a; --glow-mid: #39FF14; --glow-bright: #8dff6b; --glow-ink: #39FF14;
+}
+.glow-orange {
+  --glow-dark: #8e3d00; --glow-mid: #FF5F1F; --glow-bright: #ff9a66; --glow-ink: #FF5F1F;
+}
+.glow-purple {
+  --glow-dark: #6e1a86; --glow-mid: #D946EF; --glow-bright: #f0a6ff; --glow-ink: #D946EF;
+}
+.glow-scarlet {
+  --glow-dark: #8e0f0f; --glow-mid: #FF3131; --glow-bright: #ff7a7a; --glow-ink: #FF3131;
+}
+.glow-magenta {
+  --glow-dark: #a31356; --glow-mid: #e91a7c; --glow-bright: #FF69B4; --glow-ink: #FF69B4;
+}
+/* Palette-following: stops derive from currentColor, so a typed
+   palette (or achromatopsia grayscale) never gains a foreign colour. */
+.glow-auto {
+  --glow-dark: color-mix(in srgb, currentColor 55%, black);
+  --glow-mid: currentColor;
+  --glow-bright: color-mix(in srgb, currentColor 65%, white);
+  --glow-ink: currentColor;
+}
+/* Typed-palette glow: follows the active --cb-* ramp, not the brand. */
+.glow-cb-accent {
+  --glow-dark: color-mix(in srgb, var(--cb-accent, #FF1E89) 55%, black);
+  --glow-mid: var(--cb-accent, #FF1E89);
+  --glow-bright: color-mix(in srgb, var(--cb-accent, #FF1E89) 65%, white);
+  --glow-ink: var(--cb-accent, #FF1E89);
+}
+.glow-cb-cool {
+  --glow-dark: color-mix(in srgb, var(--cb-cool, #00E5FF) 55%, black);
+  --glow-mid: var(--cb-cool, #00E5FF);
+  --glow-bright: color-mix(in srgb, var(--cb-cool, #00E5FF) 65%, white);
+  --glow-ink: var(--cb-cool, #00E5FF);
+}
+.glow-cb-warm {
+  --glow-dark: color-mix(in srgb, var(--cb-warm, #FF5F1F) 55%, black);
+  --glow-mid: var(--cb-warm, #FF5F1F);
+  --glow-bright: color-mix(in srgb, var(--cb-warm, #FF5F1F) 65%, white);
+  --glow-ink: var(--cb-warm, #FF5F1F);
+}
+.glow-cb-violet {
+  --glow-dark: color-mix(in srgb, var(--cb-violet, #D946EF) 55%, black);
+  --glow-mid: var(--cb-violet, #D946EF);
+  --glow-bright: color-mix(in srgb, var(--cb-violet, #D946EF) 65%, white);
+  --glow-ink: var(--cb-violet, #D946EF);
+}
+
+/* A colour class on its own is enough to shift inside: it applies the
+   tier gradient (default s9 unless a .glow-s* tier is also present).
+   .glow-shift is the explicit base for the same effect. */
+.glow-white,
+.glow-pink,
+.glow-neon-pink,
+.glow-cyan,
+.glow-green,
+.glow-orange,
+.glow-purple,
+.glow-scarlet,
+.glow-magenta,
+.glow-auto,
+.glow-cb-accent,
+.glow-cb-cool,
+.glow-cb-warm,
+.glow-cb-violet {
+  background-image: var(--glow-gradient, radial-gradient(circle at 72% 26%,
+    var(--glow-bright) 0 11.2%,
+    var(--glow-mid) 11.2% 22.3%,
+    var(--glow-dark) 22.3% 33.4%,
+    var(--glow-mid) 33.4% 44.5%,
+    var(--glow-bright) 44.5% 55.6%,
+    var(--glow-mid) 55.6% 66.7%,
+    var(--glow-dark) 66.7% 77.8%,
+    var(--glow-mid) 77.8% 88.9%,
+    var(--glow-bright) 88.9% 100%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none !important;
+}
+
+/* Legacy name: .text-glow was a magenta text-shadow. It is now the
+   inside-shift pink glow, same class name, no blur, no outline. */
+.text-glow {
+  background-image: var(--glow-gradient, radial-gradient(circle at 72% 26%,
+    var(--glow-bright) 0 11.2%,
+    var(--glow-mid) 11.2% 22.3%,
+    var(--glow-dark) 22.3% 33.4%,
+    var(--glow-mid) 33.4% 44.5%,
+    var(--glow-bright) 44.5% 55.6%,
+    var(--glow-mid) 55.6% 66.7%,
+    var(--glow-dark) 66.7% 77.8%,
+    var(--glow-mid) 77.8% 88.9%,
+    var(--glow-bright) 88.9% 100%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none !important;
+  --glow-dark: #a31356; --glow-mid: #e91a7c; --glow-bright: #FF1E89; --glow-ink: #FF1E89;
+}
+
+/* Light theme: white gleam on white is invisible, so white/pink/cyan
+   shift to dark, still-legible ramps. Palette classes need no override:
+   their --cb-* vars already carry the light-theme ramp. */
+body.light-mode .glow-white {
+  --glow-dark: #000000; --glow-mid: #52525b; --glow-bright: #18181b; --glow-ink: #18181b;
+}
+body.light-mode .glow-pink,
+body.light-mode .glow-neon-pink,
+body.light-mode .glow-magenta {
+  --glow-dark: #7a0039; --glow-mid: #c40062; --glow-bright: #D00060; --glow-ink: #D00060;
+}
+body.light-mode .glow-cyan {
+  --glow-dark: #005a66; --glow-mid: #008899; --glow-bright: #00a8b8; --glow-ink: #008899;
+}
+body.light-mode .glow-auto {
+  --glow-dark: color-mix(in srgb, currentColor 60%, black);
+  --glow-mid: currentColor;
+  --glow-bright: color-mix(in srgb, currentColor 55%, white);
+}
+
+/* Achromatopsia: no gradient at all — solid grayscale ink, in both
+   themes. Legibility and pure grayscale outrank the effect here. */
+body.cb-achromatopsia .glow-shift,
+body.cb-achromatopsia .text-glow,
+body.cb-achromatopsia .glow-white,
+body.cb-achromatopsia .glow-pink,
+body.cb-achromatopsia .glow-neon-pink,
+body.cb-achromatopsia .glow-cyan,
+body.cb-achromatopsia .glow-green,
+body.cb-achromatopsia .glow-orange,
+body.cb-achromatopsia .glow-purple,
+body.cb-achromatopsia .glow-scarlet,
+body.cb-achromatopsia .glow-magenta,
+body.cb-achromatopsia .glow-auto,
+body.cb-achromatopsia .glow-cb-accent,
+body.cb-achromatopsia .glow-cb-cool,
+body.cb-achromatopsia .glow-cb-warm,
+body.cb-achromatopsia .glow-cb-violet {
+  background-image: none;
+  color: var(--cb-ink, #ffffff);
+  -webkit-text-fill-color: var(--cb-ink, #ffffff);
+  text-shadow: none !important;
+}
+
+/* High Contrast: same — solid ink, no gradient, no wash-out. */
+body.high-contrast .glow-shift,
+body.high-contrast .text-glow {
+  background-image: none;
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none !important;
+}

@@ -48,10 +48,10 @@ export default function Footer() {
         
         {/* Brand & Philanthropy */}
         <div className="space-y-6">
-          <h2 className="text-[#FF69B4] font-bold tracking-tighter text-xl italic underline decoration-zinc-800">DOLLHOUSE DEVIANTS</h2>
+          <h2 className="text-[#FF69B4] font-bold tracking-tighter text-xl italic underline decoration-zinc-800 glow-shift glow-pink glow-s9">DOLLHOUSE DEVIANTS</h2>
           <div className="text-[11px] leading-relaxed uppercase tracking-[0.2em] flex flex-col items-start gap-1">
             <span>A Sanctuary for the Unconventional.</span>
-            <span className="flex items-center gap-2">Built by <span className="signature-font text-[#FF69B4] text-2xl normal-case tracking-normal transform translate-y-1 drop-shadow-[0_0_15px_rgba(255,105,180,0.5)]">Sonja Kelley</span>.</span>
+            <span className="flex items-center gap-2">Built by <span className="signature-font text-[#FF69B4] text-2xl normal-case tracking-normal transform translate-y-1 glow-shift glow-pink glow-s7">Sonja Kelley</span>.</span>
           </div>
           <div className="pt-4 border-t border-zinc-900 mt-6 inline-block">
             <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-2">Proudly Supporting</p>

@@ -42,7 +42,7 @@ const ShortFilmHero: React.FC<ShortFilmProps> = ({
         </div>
         
         <div className="mt-auto mb-8 max-w-3xl pointer-events-auto">
-          <h2 className="text-4xl md:text-6xl font-serif font-light text-white mb-2 tracking-wide drop-shadow-lg">
+          <h2 className="text-4xl md:text-6xl font-serif font-light text-white mb-2 tracking-wide glow-shift glow-white glow-s11">
             {title}
           </h2>
           <p className="text-magenta-500 font-sans font-light tracking-[0.2em] uppercase text-xs md:text-sm mb-6">

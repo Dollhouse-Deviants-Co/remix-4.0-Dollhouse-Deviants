@@ -85,7 +85,7 @@ export default function AccessibilityMenu() {
             onPointerUp={onDragEnd}
             onPointerCancel={onDragEnd}
           >
-            <h3 className="text-magenta-500 font-bold uppercase tracking-[0.2em] text-xs">Sensory Suite</h3>
+            <h3 className="text-magenta-500 font-bold uppercase tracking-[0.2em] text-xs glow-shift glow-auto glow-s5">Sensory Suite</h3>
             <button onClick={() => setIsOpen(false)} className="text-magenta-500 text-xl font-black" aria-label="Close sensory settings">×</button>
           </nav>
 

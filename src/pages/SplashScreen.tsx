@@ -36,7 +36,7 @@ const SplashScreen = () => {
       <div className="relative z-10 flex flex-col items-center gap-6 px-4 max-w-5xl w-full mt-8">
         
         {/* Headline */}
-        <h1 className={`text-5xl md:text-7xl font-black uppercase tracking-widest text-center ${isSimplifiedMode ? 'text-[#FF69B4]' : 'text-[#FF69B4] drop-shadow-[0_0_20px_rgba(255,105,180,1)]'}`}>
+        <h1 className={`text-5xl md:text-7xl font-black uppercase tracking-widest text-center ${isSimplifiedMode ? 'text-[#FF69B4]' : 'text-[#FF69B4] glow-shift glow-pink glow-s13'}`}>
           Coming Soon
         </h1>
 
@@ -50,7 +50,7 @@ const SplashScreen = () => {
         </div>
 
         {/* URL */}
-        <h2 className={`text-2xl md:text-4xl font-bold tracking-wider text-center mt-4 ${isSimplifiedMode ? 'text-white' : 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]'}`}>
+        <h2 className={`text-2xl md:text-4xl font-bold tracking-wider text-center mt-4 ${isSimplifiedMode ? 'text-white' : 'text-white glow-shift glow-white glow-s11'}`}>
           DOLLHOUSEDEVIANTS.COM
         </h2>
 

@@ -84,7 +84,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                decoding="async"
                className="h-20 w-auto rounded-sm object-contain shadow-[0_0_15px_rgba(255,105,180,0.15)]"
              />
-             <span className="uppercase font-light hidden md:inline-block">Dollhouse Deviants</span>
+             <span className="uppercase font-light hidden md:inline-block glow-shift glow-auto glow-s11">Dollhouse Deviants</span>
            </a>
            
            {/* Site-wide Core Values Symbols */}
