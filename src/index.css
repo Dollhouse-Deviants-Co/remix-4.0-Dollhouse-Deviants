@@ -13,7 +13,7 @@
   --font-signature: "Dancing Script", cursive;
   
   --color-dd-neon: #FF1E89;
-  --color-dd-black: #050505;
+  --color-dd-black: #000000;
   --color-dd-gray: #121212;
   --color-dd-surface: #1A1A1A;
   --color-dd-charcoal: #1A1A1B;
@@ -37,7 +37,7 @@
   --orange-neon: #FF5F1F;
 --scarlet-neon: #FF3131;
   --dd-neon: #FF1E89;
-  --dd-black: #050505;
+  --dd-black: #000000;
   --dd-gray: #121212;
 }
 
@@ -46,9 +46,9 @@ html {
 }
 
 body {
-  background-color: var(--dd-black);
+  background-color: #000000;
   color: #E5E5E5;
-  background-image: radial-gradient(circle at center, #121212 0%, #050505 100%);
+  background-image: radial-gradient(circle at center, #0a0a0c 0%, #000000 70%);
   background-attachment: fixed;
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
@@ -354,10 +354,7 @@ body {
   border-width: 0;
 }
 
-/* Site-wide subtle magenta glow for zinc text to improve readability and aesthetic */
-.text-zinc-300, .text-zinc-400, .text-zinc-500, .text-zinc-600, .text-zinc-700 {
-  text-shadow: 0 0 8px rgba(255, 105, 180, 0.8), 0 0 15px rgba(255, 105, 180, 0.5);
-}
+/* Body/subtext stays crisp: no site-wide text glow (was fuzzy, hurt readability). */
 
 /* 1. Reduce Motion: Sensory Safety for Neurodiversity */
 .reduce-motion *,
@@ -406,24 +403,25 @@ body {
   color: black !important;
 }
 
-/* 5. Color Blind Mode: High-visibility cyan shift and structural indicators */
+/* 5. Color Blind Mode: typed palettes resolve through --cb-* vars (fallback = legacy cyan). */
 .color-blind-mode .text-magenta-500,
 .color-blind-mode .text-magenta-600,
 .color-blind-mode .text-magenta-400,
 .color-blind-mode .text-magenta-900 {
-  color: #00E5FF !important;
+  color: var(--cb-accent, #00E5FF) !important;
   text-shadow: none !important;
 }
 .color-blind-mode .bg-magenta-500,
 .color-blind-mode .bg-magenta-600 {
-  background-color: #00E5FF !important;
-  color: black !important;
+  background-color: var(--cb-accent-deep, #00E5FF) !important;
+  color: #fff !important;
+  border-color: var(--cb-accent-deep, #00E5FF) !important;
 }
 .color-blind-mode .border-magenta-500,
 .color-blind-mode .border-magenta-600,
 .color-blind-mode .border-magenta-900\/30,
 .color-blind-mode .border-magenta-900\/50 {
-  border-color: #00E5FF !important;
+  border-color: var(--cb-accent, #00E5FF) !important;
 }
 .color-blind-mode a {
   text-decoration: underline !important;
@@ -432,14 +430,30 @@ body {
 
 /* 6. Light Mode */
 .light-mode {
-  background-color: #fafafa !important;
+  background-color: #ffffff !important;
   background-image: none !important;
   color: #18181b !important;
 }
 .light-mode .bg-black,
 .light-mode .bg-\[\#0a0a0a\],
+.light-mode .bg-\[\#050505\],
+.light-mode .bg-\[\#121212\],
 .light-mode .bg-zinc-950 {
   background-color: #ffffff !important;
+}
+.light-mode .bg-\[\#121212\]\/50 {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+/* Theme surfaces have no light mapping by default — give them one. */
+.light-mode .bg-dd-black,
+.light-mode .bg-dd-charcoal {
+  background-color: #ffffff !important;
+}
+.light-mode .bg-dd-gray,
+.light-mode .bg-dd-surface,
+.light-mode .bg-\[\#1A1A1A\],
+.light-mode .bg-\[\#1A1A1B\] {
+  background-color: #f4f4f5 !important;
 }
 .light-mode .bg-zinc-900,
 .light-mode .bg-zinc-900\/50,
@@ -640,26 +654,26 @@ body.light-mode.high-contrast {
   border-color: #000000 !important;
 }
 
-/* 2. Light Mode + Color Blind */
+/* 2. Light Mode + Color Blind (typed palettes resolve through --cb-* vars) */
 .light-mode.color-blind-mode .text-magenta-500,
 .light-mode.color-blind-mode .text-magenta-600,
 .light-mode.color-blind-mode .text-magenta-400 {
-  color: #0055FF !important; /* High contrast dark blue instead of cyan for light mode */
+  color: var(--cb-accent, #0055FF) !important;
 }
 .light-mode.color-blind-mode .bg-magenta-500,
 .light-mode.color-blind-mode .bg-magenta-600 {
-  background-color: #0055FF !important;
+  background-color: var(--cb-accent-deep, #0055FF) !important;
   color: #ffffff !important;
 }
 .light-mode.color-blind-mode .border-magenta-500,
 .light-mode.color-blind-mode .border-magenta-600 {
-  border-color: #0055FF !important;
+  border-color: var(--cb-accent, #0055FF) !important;
 }
 
 /* 3. Dark Mode + High Contrast + Color Blind */
 .high-contrast.color-blind-mode .text-magenta-500,
 .high-contrast.color-blind-mode .text-magenta-600 {
-  color: #00E5FF !important;
+  color: var(--cb-accent, #00E5FF) !important;
 }
 
 /* =========================================
@@ -680,6 +694,476 @@ body.light-mode.high-contrast {
 }
 
 .color-blind-mode *:focus-visible {
-  outline-color: #00E5FF !important;
-  box-shadow: 0 0 15px rgba(0,229,255,0.5) !important;
+  outline-color: var(--cb-accent, #00E5FF) !important;
+  box-shadow: 0 0 15px color-mix(in srgb, var(--cb-accent, #00E5FF) 50%, transparent) !important;
+}
+
+/* =========================================
+   TYPED COLOR-VISION PALETTES
+   Selecting a palette re-palettes the whole UI for that deficiency type.
+   Dark-theme ramps are the default; light-theme ramps follow under
+   body.light-mode. Achromatopsia ships its own dark AND light grayscale
+   ramps and never touches lightMode (no forced theme switch).
+   ========================================= */
+
+/* Red-green deficiency family: blue/orange ramps keep every state distinct. */
+body.cb-deuteranomaly {
+  --cb-accent: #56B4E9; --cb-accent-deep: #0B4A70;
+  --cb-cool: #009E73; --cb-cool-deep: #00573F;
+  --cb-warm: #E69F00; --cb-warm-deep: #7A5200;
+  --cb-violet: #CC79A7; --cb-violet-deep: #7A3A5E;
+  --color-magenta-300: #8FCBF2; --color-magenta-400: #56B4E9;
+  --color-magenta-500: #56B4E9; --color-magenta-600: #0B4A70;
+  --color-magenta-900: #0B4A70;
+  --color-dd-neon: #56B4E9; --color-dd-hotpink: #56B4E9; --dd-neon: #56B4E9;
+}
+body.cb-protanomaly {
+  --cb-accent: #56B4E9; --cb-accent-deep: #0B4A70;
+  --cb-cool: #009E73; --cb-cool-deep: #00573F;
+  --cb-warm: #F0E442; --cb-warm-deep: #6E5A00;
+  --cb-violet: #CC79A7; --cb-violet-deep: #5C2547;
+  --color-magenta-300: #8FCBF2; --color-magenta-400: #56B4E9;
+  --color-magenta-500: #56B4E9; --color-magenta-600: #0B4A70;
+  --color-magenta-900: #0B4A70;
+  --color-dd-neon: #56B4E9; --color-dd-hotpink: #56B4E9; --dd-neon: #56B4E9;
+}
+body.cb-deuteranopia {
+  --cb-accent: #56B4E9; --cb-accent-deep: #0B4A70;
+  --cb-cool: #009E73; --cb-cool-deep: #00573F;
+  --cb-warm: #D55E00; --cb-warm-deep: #8E3D00;
+  --cb-violet: #CC79A7; --cb-violet-deep: #7A3A5E;
+  --color-magenta-300: #8FCBF2; --color-magenta-400: #56B4E9;
+  --color-magenta-500: #56B4E9; --color-magenta-600: #0B4A70;
+  --color-magenta-900: #0B4A70;
+  --color-dd-neon: #56B4E9; --color-dd-hotpink: #56B4E9; --dd-neon: #56B4E9;
+}
+body.cb-protanopia {
+  --cb-accent: #56B4E9; --cb-accent-deep: #0B4A70;
+  --cb-cool: #009E73; --cb-cool-deep: #00573F;
+  --cb-warm: #F0E442; --cb-warm-deep: #6E5A00;
+  --cb-violet: #CC79A7; --cb-violet-deep: #5C2547;
+  --color-magenta-300: #8FCBF2; --color-magenta-400: #56B4E9;
+  --color-magenta-500: #56B4E9; --color-magenta-600: #0B4A70;
+  --color-magenta-900: #0B4A70;
+  --color-dd-neon: #56B4E9; --color-dd-hotpink: #56B4E9; --dd-neon: #56B4E9;
+}
+/* Blue-yellow deficiency family: red-green discrimination is intact, so the
+   pink brand accent stays and cyan/blue accents shift to green/vermillion. */
+body.cb-tritanomaly {
+  --cb-accent: #FF69B4; --cb-accent-deep: #A30050;
+  --cb-cool: #009E73; --cb-cool-deep: #00573F;
+  --cb-warm: #FF5F1F; --cb-warm-deep: #8E3D00;
+  --cb-violet: #E0218A; --cb-violet-deep: #7A1050;
+  --color-magenta-300: #FF9EE2; --color-magenta-400: #FF69B4;
+  --color-magenta-500: #FF69B4; --color-magenta-600: #A30050;
+  --color-magenta-900: #5C002C;
+  --color-dd-neon: #FF69B4; --color-dd-hotpink: #FF69B4; --dd-neon: #FF69B4;
+}
+body.cb-tritanopia {
+  --cb-accent: #FF69B4; --cb-accent-deep: #A30050;
+  --cb-cool: #009E73; --cb-cool-deep: #00573F;
+  --cb-warm: #E69F00; --cb-warm-deep: #7A5200;
+  --cb-violet: #D00060; --cb-violet-deep: #6E0033;
+  --color-magenta-300: #FF9EE2; --color-magenta-400: #FF69B4;
+  --color-magenta-500: #FF69B4; --color-magenta-600: #A30050;
+  --color-magenta-900: #5C002C;
+  --color-dd-neon: #FF69B4; --color-dd-hotpink: #FF69B4; --dd-neon: #FF69B4;
+}
+/* Achromatopsia: pure grayscale + high contrast, dark theme. */
+body.cb-achromatopsia {
+  color-scheme: dark;
+  --cb-accent: #FFFFFF; --cb-accent-deep: #000000;
+  --cb-cool: #D4D4D8; --cb-cool-deep: #3F3F46;
+  --cb-warm: #A1A1AA; --cb-warm-deep: #27272A;
+  --cb-violet: #E4E4E7; --cb-violet-deep: #52525B;
+  --cb-ink: #FFFFFF;
+  --color-magenta-300: #E4E4E7; --color-magenta-400: #FFFFFF;
+  --color-magenta-500: #FFFFFF; --color-magenta-600: #000000;
+  --color-magenta-900: #000000;
+  --color-dd-neon: #FFFFFF; --color-dd-hotpink: #FFFFFF; --dd-neon: #FFFFFF;
+}
+
+/* Light-theme ramps: darker values keep text contrast on white. */
+body.light-mode.cb-deuteranomaly {
+  --cb-accent: #0072B2; --cb-accent-deep: #0B4A70;
+  --cb-cool: #006B4E; --cb-cool-deep: #00573F;
+  --cb-warm: #7A5200; --cb-warm-deep: #5C3D00;
+  --cb-violet: #8E3D6E; --cb-violet-deep: #5C2547;
+  --color-magenta-300: #0072B2; --color-magenta-400: #0072B2;
+  --color-magenta-500: #0072B2; --color-magenta-600: #0B4A70;
+  --color-magenta-900: #0B4A70;
+  --color-dd-neon: #0072B2; --color-dd-hotpink: #0072B2; --dd-neon: #0072B2;
+}
+body.light-mode.cb-protanomaly {
+  --cb-accent: #0072B2; --cb-accent-deep: #0B4A70;
+  --cb-cool: #006B4E; --cb-cool-deep: #00573F;
+  --cb-warm: #7A6200; --cb-warm-deep: #574600;
+  --cb-violet: #005A9C; --cb-violet-deep: #004065;
+  --color-magenta-300: #0072B2; --color-magenta-400: #0072B2;
+  --color-magenta-500: #0072B2; --color-magenta-600: #0B4A70;
+  --color-magenta-900: #0B4A70;
+  --color-dd-neon: #0072B2; --color-dd-hotpink: #0072B2; --dd-neon: #0072B2;
+}
+body.light-mode.cb-deuteranopia {
+  --cb-accent: #0072B2; --cb-accent-deep: #0B4A70;
+  --cb-cool: #006B4E; --cb-cool-deep: #00573F;
+  --cb-warm: #8E3D00; --cb-warm-deep: #663000;
+  --cb-violet: #8E3D6E; --cb-violet-deep: #5C2547;
+  --color-magenta-300: #0072B2; --color-magenta-400: #0072B2;
+  --color-magenta-500: #0072B2; --color-magenta-600: #0B4A70;
+  --color-magenta-900: #0B4A70;
+  --color-dd-neon: #0072B2; --color-dd-hotpink: #0072B2; --dd-neon: #0072B2;
+}
+body.light-mode.cb-protanopia {
+  --cb-accent: #0072B2; --cb-accent-deep: #0B4A70;
+  --cb-cool: #006B4E; --cb-cool-deep: #00573F;
+  --cb-warm: #7A6200; --cb-warm-deep: #574600;
+  --cb-violet: #005A9C; --cb-violet-deep: #004065;
+  --color-magenta-300: #0072B2; --color-magenta-400: #0072B2;
+  --color-magenta-500: #0072B2; --color-magenta-600: #0B4A70;
+  --color-magenta-900: #0B4A70;
+  --color-dd-neon: #0072B2; --color-dd-hotpink: #0072B2; --dd-neon: #0072B2;
+}
+body.light-mode.cb-tritanomaly {
+  --cb-accent: #C40062; --cb-accent-deep: #7A0039;
+  --cb-cool: #006B4E; --cb-cool-deep: #00573F;
+  --cb-warm: #A83C00; --cb-warm-deep: #7A2E00;
+  --cb-violet: #A01060; --cb-violet-deep: #6E0A42;
+  --color-magenta-300: #C40062; --color-magenta-400: #C40062;
+  --color-magenta-500: #C40062; --color-magenta-600: #7A0039;
+  --color-magenta-900: #4A0022;
+  --color-dd-neon: #C40062; --color-dd-hotpink: #C40062; --dd-neon: #C40062;
+}
+body.light-mode.cb-tritanopia {
+  --cb-accent: #C40062; --cb-accent-deep: #7A0039;
+  --cb-cool: #006B4E; --cb-cool-deep: #00573F;
+  --cb-warm: #7A5200; --cb-warm-deep: #5C3D00;
+  --cb-violet: #8E0050; --cb-violet-deep: #5C0033;
+  --color-magenta-300: #C40062; --color-magenta-400: #C40062;
+  --color-magenta-500: #C40062; --color-magenta-600: #7A0039;
+  --color-magenta-900: #4A0022;
+  --color-dd-neon: #C40062; --color-dd-hotpink: #C40062; --dd-neon: #C40062;
+}
+/* Achromatopsia: pure grayscale + high contrast, light theme. */
+body.light-mode.cb-achromatopsia {
+  color-scheme: light;
+  --cb-accent: #000000; --cb-accent-deep: #000000;
+  --cb-cool: #3F3F46; --cb-cool-deep: #18181B;
+  --cb-warm: #52525B; --cb-warm-deep: #27272A;
+  --cb-violet: #27272A; --cb-violet-deep: #000000;
+  --cb-ink: #000000;
+  --color-magenta-300: #52525B; --color-magenta-400: #000000;
+  --color-magenta-500: #000000; --color-magenta-600: #000000;
+  --color-magenta-900: #000000;
+  --color-dd-neon: #000000; --color-dd-hotpink: #000000; --dd-neon: #000000;
+}
+
+/* --- Shared remapping: brand pinks + status colors follow the active palette.
+   Theme magenta-* utilities already follow via the --color-magenta-* vars above
+   (including hover/focus/group-hover/opacity variants); the rules below cover
+   the hardcoded hex utilities used across the site. --- */
+
+/* Brand pink text -> accent */
+.color-blind-mode .text-\[\#FF69B4\],
+.color-blind-mode .text-\[\#FF1E89\],
+.color-blind-mode .text-\[\#ec4899\] {
+  color: var(--cb-accent) !important;
+  text-shadow: none !important;
+}
+.color-blind-mode .text-\[\#FF69B4\]\/10 {
+  color: color-mix(in srgb, var(--cb-accent) 30%, transparent) !important;
+  text-shadow: none !important;
+}
+/* Brand pink solid backgrounds -> deep accent (keeps white-ink buttons readable) */
+.color-blind-mode .bg-\[\#FF69B4\],
+.color-blind-mode .bg-\[\#FF1E89\],
+.color-blind-mode .bg-\[\#ec4899\],
+.color-blind-mode .bg-\[\#be185d\],
+.color-blind-mode .bg-magenta {
+  background-color: var(--cb-accent-deep) !important;
+  border-color: var(--cb-accent-deep) !important;
+  color: #fff !important;
+}
+/* Same-element dark ink on a remapped solid (e.g. badges) flips to white */
+.color-blind-mode :is(.bg-\[\#FF69B4\], .bg-\[\#FF1E89\], .bg-\[\#ec4899\], .bg-\[\#be185d\]).text-\[\#0a0a0a\] {
+  color: #fff !important;
+}
+/* Brand pink tinted backgrounds */
+.color-blind-mode .bg-\[\#FF69B4\]\/5,
+.color-blind-mode .hover\:bg-\[\#FF69B4\]\/5:hover,
+.color-blind-mode .hover\:bg-cyan-400\/5:hover,
+.color-blind-mode .hover\:bg-green-400\/5:hover,
+.color-blind-mode .hover\:bg-purple-400\/5:hover,
+.color-blind-mode .bg-cyan-400\/5,
+.color-blind-mode .bg-green-400\/5,
+.color-blind-mode .bg-purple-400\/5 {
+  background-color: color-mix(in srgb, var(--cb-accent) 6%, transparent) !important;
+}
+.color-blind-mode .bg-\[\#FF69B4\]\/10,
+.color-blind-mode .bg-\[\#FF1E89\]\/10,
+.color-blind-mode .bg-\[\#FF69B4\]\/20,
+.color-blind-mode .bg-\[\#FF69B4\]\/30 {
+  background-color: color-mix(in srgb, var(--cb-accent) 14%, transparent) !important;
+}
+/* Brand pink borders */
+.color-blind-mode .border-\[\#FF69B4\],
+.color-blind-mode .border-\[\#ec4899\] {
+  border-color: var(--cb-accent) !important;
+}
+.color-blind-mode .border-\[\#FF69B4\]\/50,
+.color-blind-mode .hover\:border-\[\#FF69B4\]\/50:hover,
+.color-blind-mode .group:hover .group-hover\:border-\[\#FF69B4\]\/50 {
+  border-color: color-mix(in srgb, var(--cb-accent) 55%, transparent) !important;
+}
+.color-blind-mode .border-\[\#FF69B4\]\/30,
+.color-blind-mode .border-\[\#FF69B4\]\/20 {
+  border-color: color-mix(in srgb, var(--cb-accent) 30%, transparent) !important;
+}
+/* Brand pink interactive states */
+.color-blind-mode .hover\:text-\[\#FF69B4\]:hover,
+.color-blind-mode .group:hover .group-hover\:text-\[\#FF69B4\],
+.color-blind-mode .focus\:border-\[\#FF69B4\]:focus,
+.color-blind-mode .hover\:border-\[\#FF69B4\]:hover,
+.color-blind-mode .hover\:border-\[\#FF1E89\]:hover,
+.color-blind-mode .group:hover .group-hover\:border-\[\#FF69B4\] {
+  color: var(--cb-accent) !important;
+  border-color: var(--cb-accent) !important;
+}
+.color-blind-mode .focus\:border-\[\#FF69B4\]:focus {
+  outline-color: var(--cb-accent) !important;
+}
+.color-blind-mode .hover\:bg-\[\#FF69B4\]:hover {
+  background-color: var(--cb-accent) !important;
+}
+/* Dark ink paired with a pink hover fill stays readable on the bright accent */
+.color-blind-mode .hover\:bg-\[\#FF69B4\]:hover.hover\:text-\[\#0a0a0a\]:hover {
+  color: #0a0a0a !important;
+}
+.color-blind-mode .hover\:bg-\[\#FF1E89\]:hover,
+.color-blind-mode .hover\:bg-\[\#be185d\]:hover {
+  background-color: var(--cb-accent-deep) !important;
+  color: #fff !important;
+}
+/* Rings + colored shadows follow the accent */
+.color-blind-mode .ring-\[\#FF69B4\] {
+  --tw-ring-color: var(--cb-accent) !important;
+}
+.color-blind-mode .shadow-\[\#FF69B4\]\/20 {
+  --tw-shadow-color: color-mix(in srgb, var(--cb-accent) 25%, transparent) !important;
+}
+
+/* Cool accents (cyan/blue/green) -> --cb-cool */
+.color-blind-mode .text-cyan-400,
+.color-blind-mode .text-\[\#00AFF0\],
+.color-blind-mode .text-\[\#00ff9d\],
+.color-blind-mode .text-green-400,
+.color-blind-mode .text-green-500,
+.color-blind-mode .hover\:text-cyan-400:hover,
+.color-blind-mode .hover\:text-\[\#00AFF0\]:hover {
+  color: var(--cb-cool) !important;
+  text-shadow: none !important;
+}
+.color-blind-mode .border-cyan-400,
+.color-blind-mode .border-cyan-300,
+.color-blind-mode .border-\[\#00E5FF\],
+.color-blind-mode .border-\[\#00AFF0\],
+.color-blind-mode .border-\[\#39FF14\],
+.color-blind-mode .hover\:border-cyan-400:hover,
+.color-blind-mode .hover\:border-cyan-300:hover,
+.color-blind-mode .hover\:border-\[\#00E5FF\]:hover,
+.color-blind-mode .hover\:border-\[\#00AFF0\]:hover,
+.color-blind-mode .hover\:border-\[\#39FF14\]:hover {
+  border-color: var(--cb-cool) !important;
+}
+.color-blind-mode .border-cyan-400\/50,
+.color-blind-mode .hover\:border-cyan-400\/50:hover,
+.color-blind-mode .border-green-400\/50,
+.color-blind-mode .hover\:border-green-400\/50:hover,
+.color-blind-mode .border-\[\#00ff9d\]\/30 {
+  border-color: color-mix(in srgb, var(--cb-cool) 55%, transparent) !important;
+}
+.color-blind-mode .bg-\[\#00ff9d\]\/10 {
+  background-color: color-mix(in srgb, var(--cb-cool) 12%, transparent) !important;
+}
+.color-blind-mode .bg-cyan-400,
+.color-blind-mode .hover\:bg-cyan-400:hover {
+  background-color: var(--cb-cool) !important;
+}
+
+/* Warm accents (red/orange) -> --cb-warm */
+.color-blind-mode .text-red-500,
+.color-blind-mode .text-red-600,
+.color-blind-mode .text-orange-500,
+.color-blind-mode .text-\[\#FF5F1F\],
+.color-blind-mode .text-\[\#FF3131\],
+.color-blind-mode .text-\[\#FF9030\],
+.color-blind-mode .hover\:text-red-500:hover,
+.color-blind-mode .hover\:text-red-600:hover {
+  color: var(--cb-warm) !important;
+  text-shadow: none !important;
+}
+.color-blind-mode .border-red-500,
+.color-blind-mode .border-red-600,
+.color-blind-mode .border-\[\#FF5F1F\],
+.color-blind-mode .border-\[\#FF3131\],
+.color-blind-mode .border-\[\#E65100\],
+.color-blind-mode .hover\:border-red-500:hover,
+.color-blind-mode .hover\:border-red-600:hover,
+.color-blind-mode .hover\:border-\[\#FF5F1F\]:hover,
+.color-blind-mode .hover\:border-\[\#FF3131\]:hover,
+.color-blind-mode .hover\:border-\[\#E65100\]:hover {
+  border-color: var(--cb-warm) !important;
+}
+.color-blind-mode .border-red-500\/30,
+.color-blind-mode .border-orange-500\/30,
+.color-blind-mode .hover\:border-red-500\/30:hover,
+.color-blind-mode .hover\:border-\[\#FF5F1F\]\/50:hover,
+.color-blind-mode .hover\:border-\[\#FF3131\]\/50:hover {
+  border-color: color-mix(in srgb, var(--cb-warm) 55%, transparent) !important;
+}
+.color-blind-mode .bg-red-500\/10,
+.color-blind-mode .hover\:bg-red-900\/40:hover {
+  background-color: color-mix(in srgb, var(--cb-warm) 14%, transparent) !important;
+}
+.color-blind-mode .bg-red-900,
+.color-blind-mode .hover\:bg-red-900:hover {
+  background-color: var(--cb-warm-deep) !important;
+  color: #fff !important;
+}
+
+/* Violet accents (purple) -> --cb-violet */
+.color-blind-mode .text-purple-400,
+.color-blind-mode .text-\[\#D946EF\],
+.color-blind-mode .group:hover .group-hover\:text-\[\#D946EF\] {
+  color: var(--cb-violet) !important;
+  text-shadow: none !important;
+}
+.color-blind-mode .border-\[\#D946EF\],
+.color-blind-mode .hover\:border-\[\#D946EF\]:hover,
+.color-blind-mode .border-purple-400\/50,
+.color-blind-mode .hover\:border-purple-400\/50:hover {
+  border-color: var(--cb-violet) !important;
+}
+
+/* Branded glow utilities follow the palette; zinc magenta-glow is removed */
+.color-blind-mode .text-glow,
+.color-blind-mode .glow-magenta {
+  color: var(--cb-accent) !important;
+  text-shadow: 0 0 10px color-mix(in srgb, var(--cb-accent) 70%, transparent) !important;
+}
+.color-blind-mode .glow-cyan { color: var(--cb-cool) !important; text-shadow: 0 0 10px color-mix(in srgb, var(--cb-cool) 50%, transparent) !important; }
+.color-blind-mode .glow-green { color: var(--cb-cool) !important; text-shadow: 0 0 10px color-mix(in srgb, var(--cb-cool) 50%, transparent) !important; }
+.color-blind-mode .glow-orange { color: var(--cb-warm) !important; text-shadow: 0 0 10px color-mix(in srgb, var(--cb-warm) 50%, transparent) !important; }
+.color-blind-mode .glow-scarlet { color: var(--cb-warm) !important; text-shadow: 0 0 10px color-mix(in srgb, var(--cb-warm) 50%, transparent) !important; }
+.color-blind-mode .glow-purple { color: var(--cb-violet) !important; text-shadow: 0 0 10px color-mix(in srgb, var(--cb-violet) 50%, transparent) !important; }
+.color-blind-mode .bg-cyan { background-color: var(--cb-cool) !important; }
+.color-blind-mode .bg-green { background-color: var(--cb-cool) !important; }
+.color-blind-mode .bg-orange { background-color: var(--cb-warm) !important; }
+.color-blind-mode .bg-scarlet { background-color: var(--cb-warm) !important; }
+.color-blind-mode .bg-purple { background-color: var(--cb-violet) !important; }
+.color-blind-mode .bg-magenta { background-color: var(--cb-accent-deep) !important; color: #fff !important; }
+.color-blind-mode .text-zinc-300,
+.color-blind-mode .text-zinc-400,
+.color-blind-mode .text-zinc-500,
+.color-blind-mode .text-zinc-600,
+.color-blind-mode .text-zinc-700 {
+  text-shadow: none !important;
+}
+@keyframes pulse-neon-cb {
+  0%, 100% {
+    box-shadow: 0 0 15px color-mix(in srgb, var(--cb-accent) 40%, transparent);
+    border-color: color-mix(in srgb, var(--cb-accent) 80%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 25px color-mix(in srgb, var(--cb-accent) 80%, transparent);
+    border-color: var(--cb-accent);
+  }
+}
+.color-blind-mode .animate-pulse-neon {
+  animation-name: pulse-neon-cb !important;
+}
+/* Soft radial brand overlays take on the palette accent */
+.color-blind-mode [class*="radial-gradient"] {
+  background-image: radial-gradient(circle at top, color-mix(in srgb, var(--cb-accent) 7%, transparent) 0%, transparent 70%) !important;
+}
+body.color-blind-mode ::selection {
+  background-color: color-mix(in srgb, var(--cb-accent) 45%, transparent) !important;
+}
+
+/* Light-theme ink fixes: bright fills that carried dark ink in dark mode. */
+body.light-mode.color-blind-mode .hover\:bg-\[\#FF69B4\]:hover {
+  background-color: var(--cb-accent-deep) !important;
+}
+body.light-mode.color-blind-mode .hover\:bg-\[\#FF69B4\]:hover.hover\:text-\[\#0a0a0a\]:hover {
+  color: #fff !important;
+}
+body.light-mode.color-blind-mode .hover\:bg-cyan-400:hover {
+  color: #fff !important;
+}
+body.light-mode.color-blind-mode .bg-\[\#FF69B4\],
+body.light-mode.color-blind-mode .bg-cyan-400 {
+  color: #fff !important;
+}
+
+/* --- Achromatopsia: pure grayscale + high contrast (both themes, no theme force) --- */
+body.cb-achromatopsia {
+  background-color: #000 !important;
+  background-image: radial-gradient(circle at center, #161616 0%, #000 100%) !important;
+  color: #fff !important;
+}
+body.light-mode.cb-achromatopsia {
+  background-color: #fff !important;
+  background-image: none !important;
+  color: #000 !important;
+}
+.cb-achromatopsia a {
+  text-decoration: underline !important;
+  text-underline-offset: 4px !important;
+}
+/* No color may leak through shadows, glows, or animated hue filters */
+.cb-achromatopsia *,
+.cb-achromatopsia *::before,
+.cb-achromatopsia *::after {
+  text-shadow: none !important;
+}
+.cb-achromatopsia *:not(:focus-visible) {
+  box-shadow: none !important;
+}
+.cb-achromatopsia .glitch-effect::before,
+.cb-achromatopsia .glitch-effect::after {
+  display: none !important;
+}
+.cb-achromatopsia [class*="radial-gradient"] {
+  background-image: radial-gradient(circle at top, rgba(255,255,255,0.05) 0%, transparent 70%) !important;
+}
+body.light-mode.cb-achromatopsia [class*="radial-gradient"] {
+  background-image: radial-gradient(circle at top, rgba(0,0,0,0.05) 0%, transparent 70%) !important;
+}
+/* Media renders in grayscale; layout (incl. fixed controls) is untouched */
+.cb-achromatopsia img,
+.cb-achromatopsia video,
+.cb-achromatopsia canvas {
+  filter: grayscale(1) contrast(1.08) !important;
+}
+/* High-contrast ink + hairlines in both themes */
+.cb-achromatopsia .text-zinc-300,
+.cb-achromatopsia .text-zinc-400,
+.cb-achromatopsia .text-zinc-500,
+.cb-achromatopsia .text-zinc-600,
+.cb-achromatopsia .text-zinc-700,
+.cb-achromatopsia .text-\[\#A3A3A3\] {
+  color: var(--cb-ink) !important;
+}
+.cb-achromatopsia .border-zinc-800,
+.cb-achromatopsia .border-zinc-900,
+.cb-achromatopsia .border-\[\#2D2D2D\] {
+  border-color: color-mix(in srgb, var(--cb-ink) 60%, transparent) !important;
+}
+.cb-achromatopsia .border-zinc-700,
+.cb-achromatopsia .border-zinc-600 {
+  border-color: color-mix(in srgb, var(--cb-ink) 80%, transparent) !important;
+}
+.cb-achromatopsia *:focus-visible {
+  outline: 3px solid var(--cb-ink) !important;
+  outline-offset: 4px !important;
 }

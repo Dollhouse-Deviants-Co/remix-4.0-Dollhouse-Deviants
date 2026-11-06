@@ -29,7 +29,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }, [isSimplifiedMode]);
 
   return (
-    <div className="min-h-screen bg-[#121212] flex flex-col relative overflow-x-hidden font-sans selection:bg-magenta-500/30 selection:text-white">
+    <div className="min-h-screen bg-black flex flex-col relative overflow-x-hidden font-sans selection:bg-magenta-500/30 selection:text-white">
       {/* Skip to Content Link */}
       <a 
         href="#main-content" 
@@ -73,16 +73,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Navigation Landmark - Pushed to top left */}
       <nav className="z-20 w-full px-4 sm:px-6 py-6 flex flex-wrap justify-between items-center gap-y-4" aria-label="Main Navigation">
          <div className="flex items-center gap-4 sm:gap-6">
-           <a href="/" className="flex items-center gap-3 text-white font-serif tracking-widest text-xl hover:text-[#FF69B4] transition-colors duration-500">
-             <img referrerPolicy="no-referrer" 
-               src="/dd-sfw-logo-no-main.webp" 
-               alt="Dollhouse Deviants Logo" 
-               width="40"
-               height="40"
+           <a href="/" className="flex items-center gap-4 text-white font-serif tracking-widest text-4xl hover:text-[#FF69B4] transition-colors duration-500">
+             <img referrerPolicy="no-referrer"
+               src="/dd-sfw-logo-no-main.webp"
+               alt="Dollhouse Deviants Logo"
+               width="80"
+               height="80"
                fetchPriority="high"
                loading="eager"
                decoding="async"
-               className="h-10 w-auto rounded-sm object-contain shadow-[0_0_15px_rgba(255,105,180,0.15)]" 
+               className="h-20 w-auto rounded-sm object-contain shadow-[0_0_15px_rgba(255,105,180,0.15)]"
              />
              <span className="uppercase font-light hidden md:inline-block">Dollhouse Deviants</span>
            </a>
@@ -92,10 +92,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
              <Tooltip content="Neurodiversity">
                <img referrerPolicy="no-referrer" 
                  src="/neurodiversity.webp" 
-                 alt="Neurodiversity Affirming" 
-                 width="24"
-                 height="24"
-                 className="h-6 w-6 object-contain hover:scale-110 hover:shadow-[0_0_20px_rgba(255,105,180,0.3)] transition-all duration-300 rounded-full sharp-icon" 
+                 alt="Neurodiversity Affirming"
+                 width="48"
+                 height="48"
+                 className="h-12 w-12 object-contain hover:scale-110 hover:shadow-[0_0_20px_rgba(255,105,180,0.3)] transition-all duration-300 rounded-full sharp-icon" 
                  onError={(e) => {
                    e.currentTarget.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z"/></svg>`;
                    e.currentTarget.classList.add("opacity-50");
@@ -105,10 +105,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
              <Tooltip content="Transgender Affirming">
                <img referrerPolicy="no-referrer" 
                  src="/trans-symbol.webp" 
-                 alt="Transgender Affirming" 
-                 width="24"
-                 height="24"
-                 className="h-6 w-6 object-contain hover:scale-110 hover:shadow-[0_0_20px_rgba(255,105,180,0.5)] transition-all duration-300 sharp-icon" 
+                 alt="Transgender Affirming"
+                 width="48"
+                 height="48"
+                 className="h-12 w-12 object-contain hover:scale-110 hover:shadow-[0_0_20px_rgba(255,105,180,0.5)] transition-all duration-300 sharp-icon" 
                  onError={(e) => {
                    e.currentTarget.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23FF69B4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 17v5"/><path d="M9 20h6"/><path d="m15 9 5-5"/><path d="M20 8V4h-4"/><path d="m9 9-5-5"/><path d="M4 8V4h4"/><path d="m5 5 3 3"/></svg>`;
                  }}
@@ -117,10 +117,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
              <Tooltip content="Highly Accessible">
                <img referrerPolicy="no-referrer" 
                  src="/accessibility-a11y.webp" 
-                 alt="Accessibility Prioritized" 
-                 width="24"
-                 height="24"
-                 className="h-6 w-6 object-contain invert hue-rotate-180 brightness-200 hover:scale-110 drop-shadow-[0_0_5px_rgba(255,105,180,0.3)] hover:drop-shadow-[0_0_15px_rgba(255,105,180,0.8)] transition-all duration-300 sharp-icon" 
+                 alt="Accessibility Prioritized"
+                 width="48"
+                 height="48"
+                 className="h-12 w-12 object-contain invert hue-rotate-180 brightness-200 hover:scale-110 drop-shadow-[0_0_5px_rgba(255,105,180,0.3)] hover:drop-shadow-[0_0_15px_rgba(255,105,180,0.8)] transition-all duration-300 sharp-icon" 
                  onError={(e) => {
                    e.currentTarget.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M18 8c0-.5-.4-1-1-1H7c-.6 0-1 .5-1 1"/><path d="M12 2v6"/><path d="M12 15V8"/><path d="m6 20 4-5"/><path d="m18 20-4-5"/></svg>`;
                  }}
@@ -140,15 +140,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                    <Nameplate 
                      name={currentUser.displayName || 'Sonja (Founder)'} 
                      role={(currentUser as any).role || 'architect'} 
-                     className="text-xs justify-end"
+                     className="text-sm justify-end"
                    />
-                   <p className="text-[10px] uppercase tracking-[0.3em] text-zinc-400 mt-1">
+                   <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 mt-1">
                      System Status: Online
                    </p>
                  </div>
                  
                  <Tooltip content="Manage Identity" position="bottom">
-                   <div className="w-10 h-10 shrink-0 rounded-full border border-[#FF69B4]/20 overflow-hidden relative group shadow-[0_0_15px_rgba(255,105,180,0.15)] transition-all duration-700 hover:border-[#FF69B4]/50 cursor-pointer">
+                   <div className="w-14 h-14 shrink-0 rounded-full border border-[#FF69B4]/20 overflow-hidden relative group shadow-[0_0_15px_rgba(255,105,180,0.15)] transition-all duration-700 hover:border-[#FF69B4]/50 cursor-pointer">
                      <img referrerPolicy="no-referrer" 
                        src="/Sonja-Profile-Picture.webp" 
                        alt="User Avatar" 
@@ -165,13 +165,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                <Tooltip content="System Login" position="bottom">
                   <button className="flex items-center gap-3 group cursor-pointer w-full text-left" aria-label="Log into system" onClick={loginWithGoogle}>
                  <div className="text-right hidden md:block">
-                   <p className="text-xs tracking-widest text-zinc-400 font-bold uppercase group-hover:text-[#FF69B4] transition-colors">Log In</p>
-                   <p className="text-[10px] uppercase tracking-[0.3em] text-zinc-400 mt-1">
+                   <p className="text-sm tracking-widest text-zinc-400 font-bold uppercase group-hover:text-[#FF69B4] transition-colors">Log In</p>
+                   <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 mt-1">
                      System Status: Offline
                    </p>
                  </div>
-                 <div className="w-10 h-10 shrink-0 rounded-full border border-zinc-800 border-dashed flex items-center justify-center text-zinc-400 group-hover:border-[#FF69B4] group-hover:text-[#FF69B4] transition-all bg-zinc-900/50">
-                    <span className="text-xs tracking-widest font-black uppercase">?</span>
+                 <div className="w-14 h-14 shrink-0 rounded-full border border-zinc-800 border-dashed flex items-center justify-center text-zinc-400 group-hover:border-[#FF69B4] group-hover:text-[#FF69B4] transition-all bg-zinc-900/50">
+                    <span className="text-sm tracking-widest font-black uppercase">?</span>
                  </div>
                 </button>
               </Tooltip>
