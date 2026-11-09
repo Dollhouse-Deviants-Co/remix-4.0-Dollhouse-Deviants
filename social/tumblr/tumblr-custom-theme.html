@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{Title}{block:PostTitle} — {PostTitle}{/block:PostTitle}{block:SearchPage} — Search results for "{SearchQuery}"{/block:SearchPage}{block:TagPage} — Posts tagged "{Tag}"{/block:TagPage}</title>
+{block:Description}
+<meta name="description" content="{MetaDescription}">
+{/block:Description}
+
+<!-- Tumblr theme options: these appear in Tumblr's Customize editor.
+     Defaults are Sonja's Dollhouse Deviants palette. No JavaScript is used. -->
+<meta name="color:Background" content="#0a0a0a">
+<meta name="color:Post Background" content="#111111">
+<meta name="color:Accent" content="#FF1E89">
+<meta name="color:Secondary Accent" content="#0fb6cb">
+<meta name="color:Text" content="#f5f5f5">
+<meta name="color:Muted Text" content="#c9c9c9">
+<meta name="color:Border" content="#333333">
+<meta name="if:Show Avatar" content="1">
+<meta name="if:Show Description" content="1">
+
+<style>
+/* Dollhouse Deviants — Sonja on Fire
+   HTML + CSS only. No JavaScript, no external scripts, no tracking pixels. */
+
+* { box-sizing: border-box; }
+
+html {
+  background: {color:Background};
+  color: {color:Text};
+}
+
+body {
+  margin: 0;
+  background: {color:Background};
+  color: {color:Text};
+  font-family: system-ui, "Segoe UI", Inter, "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* Visible focus for keyboard users: a thick pink outline, never color alone. */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid {color:Accent};
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  background: {color:Accent};
+  color: #ffffff;
+  padding: 8px 12px;
+  font-weight: 700;
+  text-decoration: none;
+  border: 2px solid #ffffff;
+}
+.skip-link:focus { top: 12px; }
+
+.wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+/* ---- Header ---- */
+.blog-header {
+  border: 2px solid {color:Border};
+  border-bottom: 4px solid {color:Accent};
+  background: {color:Background};
+  padding: 28px 24px;
+  text-align: left;
+}
+
+.blog-header .avatar {
+  display: block;
+  width: 96px;
+  height: 96px;
+  border: 3px solid {color:Accent};
+  margin-bottom: 16px;
+}
+
+.blog-title {
+  margin: 0 0 12px;
+  font-size: 36px;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+.blog-title a {
+  color: {color:Accent};
+  text-decoration: none;
+}
+.blog-title a:hover,
+.blog-title a:focus-visible { text-decoration: underline; }
+
+.blog-description {
+  margin: 0;
+  color: {color:Text};
+  font-size: 17px;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+/* ---- Navigation: secondary links in cyan only ---- */
+.blog-nav {
+  margin: 16px 0 28px;
+  padding: 12px 0;
+  border-top: 2px solid {color:Border};
+  border-bottom: 2px solid {color:Border};
+}
+.blog-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+.blog-nav a {
+  color: {color:Secondary Accent};
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.blog-nav a:hover { color: {color:Text}; }
+
+/* ---- Posts ---- */
+.post {
+  background: {color:Post Background};
+  border: 2px solid {color:Border};
+  padding: 24px;
+  margin: 0 0 28px;
+}
+.post h2 {
+  margin: 0 0 12px;
+  font-size: 26px;
+  line-height: 1.25;
+}
+.post h2 a { color: {color:Accent}; text-decoration: none; }
+.post h2 a:hover { text-decoration: underline; }
+
+.post p { margin: 0 0 14px; }
+.post p:last-child { margin-bottom: 0; }
+
+.post a { color: {color:Accent}; }
+.post a:hover { color: {color:Text}; }
+
+.post img,
+.post iframe,
+.post video {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid {color:Border};
+}
+.post .photoset img { border: 2px solid {color:Border}; }
+
+/* Photo / photoset */
+.photo-wrap { margin: 0 0 16px; }
+.photo-wrap img { display: block; width: 100%; }
+.photoset { display: grid; gap: 12px; margin: 0 0 16px; }
+.photoset img { display: block; width: 100%; }
+
+/* Quote */
+.quote-text {
+  margin: 0 0 12px;
+  font-size: 26px;
+  line-height: 1.35;
+  font-weight: 700;
+  border-left: 4px solid {color:Accent};
+  padding-left: 16px;
+}
+.quote-source { color: {color:Muted Text}; }
+
+/* Link post */
+.link-name { font-size: 24px; font-weight: 800; }
+.link-name a { color: {color:Accent}; text-decoration: none; }
+.link-name a:hover { text-decoration: underline; }
+
+/* Chat */
+.chat-lines { list-style: none; margin: 0 0 14px; padding: 0; }
+.chat-lines li { padding: 6px 0; border-bottom: 2px solid {color:Border}; }
+.chat-lines li:last-child { border-bottom: none; }
+.chat-label { font-weight: 800; color: {color:Accent}; }
+
+/* Answer / Ask */
+.answer-question {
+  border: 2px solid {color:Border};
+  border-left: 4px solid {color:Accent};
+  padding: 16px;
+  margin: 0 0 16px;
+}
+.answer-question p { margin: 0; }
+.asker { color: {color:Muted Text}; font-weight: 700; }
+
+/* Caption, tags, meta: labels in text, never color alone */
+.caption { margin-top: 16px; }
+.caption p { margin: 0 0 12px; }
+
+.post-tags {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 14px 0 0;
+  border-top: 2px solid {color:Border};
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+.post-tags a {
+  color: {color:Secondary Accent};
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.post-meta {
+  margin: 16px 0 0;
+  padding-top: 14px;
+  border-top: 2px solid {color:Border};
+  color: {color:Muted Text};
+  font-size: 15px;
+}
+.post-meta a { color: {color:Secondary Accent}; font-weight: 700; }
+.post-meta .reblog-label { font-weight: 700; color: {color:Text}; }
+
+/* Notes (shown on permalink pages) */
+.post-notes { margin: 20px 0 0; padding-top: 14px; border-top: 2px solid {color:Border}; }
+.post-notes ol { list-style: none; margin: 0; padding: 0; }
+.post-notes li { padding: 6px 0; border-bottom: 2px solid {color:Border}; }
+.post-notes li:last-child { border-bottom: none; }
+.post-notes img { width: 24px; height: 24px; border: 2px solid {color:Border}; vertical-align: middle; }
+
+/* ---- Pagination ---- */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  border: 2px solid {color:Border};
+  padding: 14px 18px;
+  font-weight: 700;
+}
+.pagination a { color: {color:Accent}; }
+.pagination .page-numbers { color: {color:Muted Text}; font-weight: 700; }
+.pagination .page-numbers a { color: {color:Secondary Accent}; }
+
+/* ---- Footer ---- */
+.blog-footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 2px solid {color:Border};
+  color: {color:Muted Text};
+  font-size: 15px;
+}
+.blog-footer a { color: {color:Secondary Accent}; }
+
+/* ---- Mobile ---- */
+@media (max-width: 600px) {
+  .wrap { padding: 16px 14px 32px; }
+  .blog-header { padding: 20px 16px; }
+  .blog-title { font-size: 28px; }
+  .post { padding: 18px 16px; }
+  .quote-text { font-size: 22px; }
+  .pagination { flex-direction: column; align-items: flex-start; }
+}
+
+/* No decorative motion at all, and respect reduced-motion explicitly. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#posts">Skip to posts</a>
+
+<div class="wrap">
+  <header class="blog-header">
+    {block:ShowAvatar}
+    <a href="{BlogURL}"><img class="avatar" src="{PortraitURL-128}" alt="Avatar for {Title}"></a>
+    {/block:ShowAvatar}
+
+    {block:ShowTitle}
+    <h1 class="blog-title"><a href="{BlogURL}">{Title}</a></h1>
+    {/block:ShowTitle}
+
+    {block:ShowDescription}
+    {block:Description}
+    <p class="blog-description">{Description}</p>
+    {/block:Description}
+    {/block:ShowDescription}
+  </header>
+
+  <nav class="blog-nav" aria-label="Blog navigation">
+    <ul>
+      <li><a href="{BlogURL}">Home</a></li>
+      <li><a href="/archive">Archive</a></li>
+      {block:AskEnabled}
+      <li><a href="/ask">Ask</a></li>
+      {/block:AskEnabled}
+      {block:SubmissionsEnabled}
+      <li><a href="/submit">Submit</a></li>
+      {/block:SubmissionsEnabled}
+      {block:HasPages}
+      {block:Pages}
+      <li><a href="{URL}">{Label}</a></li>
+      {/block:Pages}
+      {/block:HasPages}
+    </ul>
+  </nav>
+
+  <main id="posts">
+    {block:Posts}
+    <article class="post" id="post-{PostID}">
+
+      {block:Text}
+      {block:Title}<h2><a href="{Permalink}">{Title}</a></h2>{/block:Title}
+      <div class="post-body">{Body}</div>
+      {/block:Text}
+
+      {block:Photo}
+      <div class="photo-wrap">
+        {LinkOpenTag}<img src="{PhotoURL-500}" alt="{PhotoAlt}">{LinkCloseTag}
+      </div>
+      {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+      {/block:Photo}
+
+      {block:Photoset}
+      <div class="photoset">
+        {block:Photos}
+        <img src="{PhotoURL-500}" alt="{PhotoAlt}">
+        {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+        {/block:Photos}
+      </div>
+      {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+      {/block:Photoset}
+
+      {block:Quote}
+      <blockquote class="quote-text">{Quote}</blockquote>
+      {block:Source}<p class="quote-source">— {Source}</p>{/block:Source}
+      {/block:Quote}
+
+      {block:Link}
+      <p class="link-name"><a href="{URL}" {Target}>{Name}</a></p>
+      {block:Description}<div class="caption">{Description}</div>{/block:Description}
+      {/block:Link}
+
+      {block:Chat}
+      {block:Title}<h2><a href="{Permalink}">{Title}</a></h2>{/block:Title}
+      <ul class="chat-lines">
+        {block:Lines}
+        <li>{block:Label}<span class="chat-label">{Label}</span> {/block:Label}{Line}</li>
+        {/block:Lines}
+      </ul>
+      {/block:Chat}
+
+      {block:Audio}
+      <div class="audio-player">{AudioEmbed}</div>
+      {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+      {/block:Audio}
+
+      {block:Video}
+      <div class="video-player">{VideoEmbed-500}</div>
+      {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+      {/block:Video}
+
+      {block:Answer}
+      <div class="answer-question">
+        <p><span class="asker">{Asker} asked:</span></p>
+        <p>{Question}</p>
+      </div>
+      <div class="answer-body">{Answer}</div>
+      {/block:Answer}
+
+      {block:HasTags}
+      <ul class="post-tags" aria-label="Tags">
+        {block:Tags}
+        <li><a href="{TagURL}">#{Tag}</a></li>
+        {/block:Tags}
+      </ul>
+      {/block:HasTags}
+
+      <div class="post-meta">
+        {block:Date}
+        <a href="{Permalink}">{DayOfMonth} {Month} {Year}</a>
+        {/block:Date}
+        {block:RebloggedFrom}
+        <span class="reblog-label">Reblogged from</span> <a href="{ReblogParentURL}">{ReblogParentName}</a>
+        {/block:RebloggedFrom}
+        {block:NoteCount}
+        · <a href="{Permalink}">{NoteCountWithLabel}</a>
+        {/block:NoteCount}
+        · <a href="{Permalink}">Permalink</a>
+      </div>
+
+      {block:PermalinkPage}
+      {block:PostNotes}
+      <div class="post-notes">{PostNotes}</div>
+      {/block:PostNotes}
+      {/block:PermalinkPage}
+
+    </article>
+    {/block:Posts}
+  </main>
+
+  {block:Pagination}
+  <nav class="pagination" aria-label="Pagination">
+    <span>
+      {block:PreviousPage}<a href="{PreviousPage}">← Newer posts</a>{/block:PreviousPage}
+    </span>
+    <span class="page-numbers">
+      {block:JumpPagination length="5"}
+      {block:CurrentPage}<span>{PageNumber}</span>{/block:CurrentPage}
+      {block:JumpPage}<a href="{URL}">{PageNumber}</a>{/block:JumpPage}
+      {/block:JumpPagination}
+    </span>
+    <span>
+      {block:NextPage}<a href="{NextPage}">Older posts →</a>{/block:NextPage}
+    </span>
+  </nav>
+  {/block:Pagination}
+
+  <footer class="blog-footer">
+    <p>© {CopyrightYears} <a href="{BlogURL}">{Title}</a></p>
+  </footer>
+</div>
+</body>
+</html>
+
+<!--
+Tumblr custom theme notes — Dollhouse Deviants, @sonja-on-fire
+- Palette used: background #0a0a0a (near-black), post background #111111,
+  main accent #FF1E89 (neon pink, blog title and primary links/buttons),
+  secondary accent #0fb6cb (cyan, secondary links only: navigation and tags),
+  body text #f5f5f5 (high-contrast off-white on black), muted text #c9c9c9,
+  borders #333333 (solid 2px, never gradient-only or faint separators).
+- Font stack used: system-ui, "Segoe UI", Inter, "Helvetica Neue", Arial, sans-serif.
+  NO named Dollhouse Deviants brand font was found: a search of ~/workspace project
+  folders (excluding node_modules/target/dist) found no Dollhouse Deviants repo or
+  site CSS naming a brand font. The only font-family hits were Flow Desktop's
+  review CSS (Inter / Open Sans in ~/workspace/projects/flow-tuned/review/src/App.css),
+  which is not a Dollhouse Deviants brand font, so it is not claimed as one.
+  Inter appears in the stack only as a generic clean technical sans, with system
+  fallbacks; no external font file is loaded.
+- JavaScript: NONE. HTML + CSS only. No external scripts, no tracking pixels,
+  no third-party embeds. Audio/Video use Tumblr's own native {AudioEmbed} /
+  {VideoEmbed-500} players only.
+- Post types covered: text, photo, photoset, quote, link, chat, audio, video, answer,
+  plus captions, tags, dates, reblog source, note counts, permalink-page notes,
+  pagination, Ask/Submit navigation when enabled, and custom pages when present.
+- Approximations / left out:
+  * Tumblr provides no standard {block:NoPosts} empty-state block, so no fake
+    "no posts" message was added (one would also render when posts exist).
+    With 0 posts, the header, bio (via {Title} / {Description}), and navigation
+    still render cleanly above an empty post list.
+  * The blog title and bio are rendered via Tumblr's {Title} and {Description}
+    variables, not hardcoded, so the approved title "Dollhouse Deviants — Sonja on Fire"
+    and Bio A must be set in Tumblr's blog settings/edit-appearance for the
+    header to show them. The description keeps its line breaks via pre-line.
+  * No avatar image, header image, or external font is bundled; Tumblr's own
+    portrait is used only when "Show Avatar" is enabled.
+  * No fire/flow content, no adult links, and no explicit content in this theme.
+-->
