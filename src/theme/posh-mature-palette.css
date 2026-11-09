@@ -1,0 +1,284 @@
+/*
+ * The Posh/Mature App Palette — Dollhouse Deviants
+ * Source: Posh Luxe Palette Studio draft (Oct 27, 2026), final darkened pass.
+ * Status: DRAFT TOKENS. Imported by src/index.css. Nothing in the app uses
+ * these tokens yet, so importing this file changes no visuals. Wire a variant
+ * in by setting data-posh-variant="a|b|c|d" and data-posh-theme="dark|light"
+ * on a wrapper element; generic --posh-* properties then resolve to it.
+ *
+ * Direction (Sonja, Oct 27, 2026): polished and understated — the sell is in
+ * the details, smoothness, and clarity, not wow-factor contrast. Pink runs
+ * orchid to deep wine; the cool accent runs dark teal to greenish-navy (no
+ * electric cyan). Silver/chrome/gold appear ONLY as a 1px metal pinstripe
+ * plus one small ornament per variant, used sparingly.
+ *
+ * Variants:
+ *   A  Velvet Boudoir & Brushed Gold    — corners ornament, brushed gold
+ *   B  Parisian Midnight & Chrome       — corners ornament, polished chrome
+ *   C  Victorian Astral & Antique Gold  — curl ornament, antique gold
+ *   D  Black Diamond & Platinum         — buckle-brace ornament, liquid platinum
+ *
+ * Accessibility: every variant ships dark + light. All meaning must also
+ * carry in pure grayscale (labels, borders, line styles — never color
+ * alone), per the Accessibility Suite SOP and Day's achromatopsia check.
+ */
+
+@theme {
+  /* ——— Variant A: Velvet Boudoir & Brushed Gold (dark) ——— */
+  --color-posh-a-bg: #080609;
+  --color-posh-a-bg2: #0e080c;
+  --color-posh-a-card: #120d11;
+  --color-posh-a-card2: #0d090d;
+  --color-posh-a-primary: #ad3375;
+  --color-posh-a-primary-text: #ffffff;
+  --color-posh-a-secondary: #547c6d;
+  --color-posh-a-text: #ddd3d7;
+  --color-posh-a-muted: #a1969e;
+  --color-posh-a-border: #241d23;
+  --color-posh-a-metal-1: #66501f;
+  --color-posh-a-metal-2: #a8891f;
+  --color-posh-a-metal-3: #c9b276;
+
+  /* ——— Variant A: light ——— */
+  --color-posh-a-light-bg: #dcd2d5;
+  --color-posh-a-light-bg2: #cfc3c8;
+  --color-posh-a-light-card: #ece5e7;
+  --color-posh-a-light-card2: #e5dce0;
+  --color-posh-a-light-primary: #7c254f;
+  --color-posh-a-light-primary-text: #ffffff;
+  --color-posh-a-light-secondary: #1f483f;
+  --color-posh-a-light-text: #211820;
+  --color-posh-a-light-muted: #493e46;
+  --color-posh-a-light-border: #32262d;
+
+  /* ——— Variant B: Parisian Midnight & Chrome (dark) ——— */
+  --color-posh-b-bg: #06080b;
+  --color-posh-b-bg2: #090d13;
+  --color-posh-b-card: #0d1219;
+  --color-posh-b-card2: #090c12;
+  --color-posh-b-primary: #952a4e;
+  --color-posh-b-primary-text: #ffffff;
+  --color-posh-b-secondary: #45707b;
+  --color-posh-b-text: #d6d9dc;
+  --color-posh-b-muted: #8d99a3;
+  --color-posh-b-border: #1e242e;
+  --color-posh-b-metal-1: #5c626a;
+  --color-posh-b-metal-2: #9aa1a8;
+  --color-posh-b-metal-3: #cfd3d6;
+
+  /* ——— Variant B: light ——— */
+  --color-posh-b-light-bg: #d7dde1;
+  --color-posh-b-light-bg2: #cbd2d7;
+  --color-posh-b-light-card: #ebeff0;
+  --color-posh-b-light-card2: #e4e8ea;
+  --color-posh-b-light-primary: #6d1f40;
+  --color-posh-b-light-primary-text: #ffffff;
+  --color-posh-b-light-secondary: #1e414a;
+  --color-posh-b-light-text: #11141b;
+  --color-posh-b-light-muted: #333d47;
+  --color-posh-b-light-border: #232a35;
+
+  /* ——— Variant C: Victorian Astral & Antique Gold (dark) ——— */
+  --color-posh-c-bg: #060607;
+  --color-posh-c-bg2: #0b0a09;
+  --color-posh-c-card: #111010;
+  --color-posh-c-card2: #0b0a09;
+  --color-posh-c-primary: #842b45;
+  --color-posh-c-primary-text: #ffffff;
+  --color-posh-c-secondary: #4d6d5a;
+  --color-posh-c-text: #dcd7cf;
+  --color-posh-c-muted: #9b968e;
+  --color-posh-c-border: #24211d;
+  --color-posh-c-metal-1: #59441f;
+  --color-posh-c-metal-2: #937742;
+  --color-posh-c-metal-3: #bfa674;
+
+  /* ——— Variant C: light ——— */
+  --color-posh-c-light-bg: #ded9cf;
+  --color-posh-c-light-bg2: #d3ccbd;
+  --color-posh-c-light-card: #efe9de;
+  --color-posh-c-light-card2: #e7dfd2;
+  --color-posh-c-light-primary: #5f1a34;
+  --color-posh-c-light-primary-text: #ffffff;
+  --color-posh-c-light-secondary: #274639;
+  --color-posh-c-light-text: #1a1713;
+  --color-posh-c-light-muted: #413c35;
+  --color-posh-c-light-border: #26241f;
+
+  /* ——— Variant D: Black Diamond & Platinum (dark) ——— */
+  --color-posh-d-bg: #050506;
+  --color-posh-d-bg2: #08080a;
+  --color-posh-d-card: #0d0d0f;
+  --color-posh-d-card2: #08080a;
+  --color-posh-d-primary: #701f36;
+  --color-posh-d-primary-text: #ffffff;
+  --color-posh-d-secondary: #51687a;
+  --color-posh-d-text: #dcdcdc;
+  --color-posh-d-muted: #8c9199;
+  --color-posh-d-border: #1d1d20;
+  --color-posh-d-metal-1: #5e636a;
+  --color-posh-d-metal-2: #949a9f;
+  --color-posh-d-metal-3: #c6c9cc;
+
+  /* ——— Variant D: light ——— */
+  --color-posh-d-light-bg: #d9dbde;
+  --color-posh-d-light-bg2: #cfd1d4;
+  --color-posh-d-light-card: #ececed;
+  --color-posh-d-light-card2: #e3e4e6;
+  --color-posh-d-light-primary: #52162b;
+  --color-posh-d-light-primary-text: #ffffff;
+  --color-posh-d-light-secondary: #263a4a;
+  --color-posh-d-light-text: #121214;
+  --color-posh-d-light-muted: #3d3d44;
+  --color-posh-d-light-border: #1f1f23;
+}
+
+/*
+ * Generic --posh-* properties. Default (no attributes set) is variant A,
+ * dark. Set data-posh-variant + data-posh-theme on a wrapper to switch.
+ */
+:root {
+  --posh-bg: var(--color-posh-a-bg);
+  --posh-bg2: var(--color-posh-a-bg2);
+  --posh-card: var(--color-posh-a-card);
+  --posh-card2: var(--color-posh-a-card2);
+  --posh-primary: var(--color-posh-a-primary);
+  --posh-primary-text: var(--color-posh-a-primary-text);
+  --posh-secondary: var(--color-posh-a-secondary);
+  --posh-text: var(--color-posh-a-text);
+  --posh-muted: var(--color-posh-a-muted);
+  --posh-border: var(--color-posh-a-border);
+  --posh-metal-1: var(--color-posh-a-metal-1);
+  --posh-metal-2: var(--color-posh-a-metal-2);
+  --posh-metal-3: var(--color-posh-a-metal-3);
+}
+
+[data-posh-variant="a"] {
+  --posh-bg: var(--color-posh-a-bg);
+  --posh-bg2: var(--color-posh-a-bg2);
+  --posh-card: var(--color-posh-a-card);
+  --posh-card2: var(--color-posh-a-card2);
+  --posh-primary: var(--color-posh-a-primary);
+  --posh-primary-text: var(--color-posh-a-primary-text);
+  --posh-secondary: var(--color-posh-a-secondary);
+  --posh-text: var(--color-posh-a-text);
+  --posh-muted: var(--color-posh-a-muted);
+  --posh-border: var(--color-posh-a-border);
+  --posh-metal-1: var(--color-posh-a-metal-1);
+  --posh-metal-2: var(--color-posh-a-metal-2);
+  --posh-metal-3: var(--color-posh-a-metal-3);
+}
+
+[data-posh-variant="a"][data-posh-theme="light"] {
+  --posh-bg: var(--color-posh-a-light-bg);
+  --posh-bg2: var(--color-posh-a-light-bg2);
+  --posh-card: var(--color-posh-a-light-card);
+  --posh-card2: var(--color-posh-a-light-card2);
+  --posh-primary: var(--color-posh-a-light-primary);
+  --posh-primary-text: var(--color-posh-a-light-primary-text);
+  --posh-secondary: var(--color-posh-a-light-secondary);
+  --posh-text: var(--color-posh-a-light-text);
+  --posh-muted: var(--color-posh-a-light-muted);
+  --posh-border: var(--color-posh-a-light-border);
+}
+
+[data-posh-variant="b"] {
+  --posh-bg: var(--color-posh-b-bg);
+  --posh-bg2: var(--color-posh-b-bg2);
+  --posh-card: var(--color-posh-b-card);
+  --posh-card2: var(--color-posh-b-card2);
+  --posh-primary: var(--color-posh-b-primary);
+  --posh-primary-text: var(--color-posh-b-primary-text);
+  --posh-secondary: var(--color-posh-b-secondary);
+  --posh-text: var(--color-posh-b-text);
+  --posh-muted: var(--color-posh-b-muted);
+  --posh-border: var(--color-posh-b-border);
+  --posh-metal-1: var(--color-posh-b-metal-1);
+  --posh-metal-2: var(--color-posh-b-metal-2);
+  --posh-metal-3: var(--color-posh-b-metal-3);
+}
+
+[data-posh-variant="b"][data-posh-theme="light"] {
+  --posh-bg: var(--color-posh-b-light-bg);
+  --posh-bg2: var(--color-posh-b-light-bg2);
+  --posh-card: var(--color-posh-b-light-card);
+  --posh-card2: var(--color-posh-b-light-card2);
+  --posh-primary: var(--color-posh-b-light-primary);
+  --posh-primary-text: var(--color-posh-b-light-primary-text);
+  --posh-secondary: var(--color-posh-b-light-secondary);
+  --posh-text: var(--color-posh-b-light-text);
+  --posh-muted: var(--color-posh-b-light-muted);
+  --posh-border: var(--color-posh-b-light-border);
+}
+
+[data-posh-variant="c"] {
+  --posh-bg: var(--color-posh-c-bg);
+  --posh-bg2: var(--color-posh-c-bg2);
+  --posh-card: var(--color-posh-c-card);
+  --posh-card2: var(--color-posh-c-card2);
+  --posh-primary: var(--color-posh-c-primary);
+  --posh-primary-text: var(--color-posh-c-primary-text);
+  --posh-secondary: var(--color-posh-c-secondary);
+  --posh-text: var(--color-posh-c-text);
+  --posh-muted: var(--color-posh-c-muted);
+  --posh-border: var(--color-posh-c-border);
+  --posh-metal-1: var(--color-posh-c-metal-1);
+  --posh-metal-2: var(--color-posh-c-metal-2);
+  --posh-metal-3: var(--color-posh-c-metal-3);
+}
+
+[data-posh-variant="c"][data-posh-theme="light"] {
+  --posh-bg: var(--color-posh-c-light-bg);
+  --posh-bg2: var(--color-posh-c-light-bg2);
+  --posh-card: var(--color-posh-c-light-card);
+  --posh-card2: var(--color-posh-c-light-card2);
+  --posh-primary: var(--color-posh-c-light-primary);
+  --posh-primary-text: var(--color-posh-c-light-primary-text);
+  --posh-secondary: var(--color-posh-c-light-secondary);
+  --posh-text: var(--color-posh-c-light-text);
+  --posh-muted: var(--color-posh-c-light-muted);
+  --posh-border: var(--color-posh-c-light-border);
+}
+
+[data-posh-variant="d"] {
+  --posh-bg: var(--color-posh-d-bg);
+  --posh-bg2: var(--color-posh-d-bg2);
+  --posh-card: var(--color-posh-d-card);
+  --posh-card2: var(--color-posh-d-card2);
+  --posh-primary: var(--color-posh-d-primary);
+  --posh-primary-text: var(--color-posh-d-primary-text);
+  --posh-secondary: var(--color-posh-d-secondary);
+  --posh-text: var(--color-posh-d-text);
+  --posh-muted: var(--color-posh-d-muted);
+  --posh-border: var(--color-posh-d-border);
+  --posh-metal-1: var(--color-posh-d-metal-1);
+  --posh-metal-2: var(--color-posh-d-metal-2);
+  --posh-metal-3: var(--color-posh-d-metal-3);
+}
+
+[data-posh-variant="d"][data-posh-theme="light"] {
+  --posh-bg: var(--color-posh-d-light-bg);
+  --posh-bg2: var(--color-posh-d-light-bg2);
+  --posh-card: var(--color-posh-d-light-card);
+  --posh-card2: var(--color-posh-d-light-card2);
+  --posh-primary: var(--color-posh-d-light-primary);
+  --posh-primary-text: var(--color-posh-d-light-primary-text);
+  --posh-secondary: var(--color-posh-d-light-secondary);
+  --posh-text: var(--color-posh-d-light-text);
+  --posh-muted: var(--color-posh-d-light-muted);
+  --posh-border: var(--color-posh-d-light-border);
+}
+
+/* The one sanctioned metal treatment: a 1px pinstripe in the active
+ * variant's metal gradient. Corner braces (A/B), the curl (C), and the
+ * buckle brace (D) are per-variant ornaments, added in markup, not here. */
+.posh-metal-line {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    var(--posh-metal-1),
+    var(--posh-metal-2),
+    var(--posh-metal-3)
+  );
+}

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Dancing+Script:wght@400..700&display=swap');
 @import "tailwindcss";
+@import "./theme/posh-mature-palette.css";
 
 @layer utilities {
   .signature-font {
