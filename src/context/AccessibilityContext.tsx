@@ -43,6 +43,16 @@ interface AccessProps {
   toggleColorBlind: () => void;
   lightMode: boolean; toggleLightMode: () => void;
   isSimplifiedMode: boolean; toggleSimplifiedMode: () => void;
+  /**
+   * Deviant Multimedia Engine (player) settings. 'site' means the video
+   * follows the site Color Vision Palette above; any palette id overrides
+   * it for video only. All three persist in dd_a11y_settings_v1 like the
+   * other settings, and they combine freely with them — never one-at-a-time.
+   */
+  videoPalette: 'site' | ColorBlindPalette; setVideoPalette: (p: 'site' | ColorBlindPalette) => void;
+  dmeFocusMode: boolean; toggleDmeFocusMode: () => void;
+  /** Video ids whose no-flash curtain the viewer has chosen to lift. */
+  dmeCurtainsLifted: string[]; liftDmeCurtain: (id: string) => void; coverDmeCurtain: (id: string) => void;
 }
 
 const AccessContext = createContext<AccessProps | undefined>(undefined);
@@ -59,6 +69,9 @@ interface StoredSettings {
   colorBlindPalette: ColorBlindPalette;
   lightMode: boolean;
   isSimplifiedMode: boolean;
+  videoPalette: 'site' | ColorBlindPalette;
+  dmeFocusMode: boolean;
+  dmeCurtainsLifted: string[];
 }
 
 const DEFAULTS: StoredSettings = {
@@ -70,10 +83,19 @@ const DEFAULTS: StoredSettings = {
   colorBlindPalette: 'none',
   lightMode: false,
   isSimplifiedMode: false,
+  videoPalette: 'site',
+  dmeFocusMode: false,
+  dmeCurtainsLifted: [],
 };
 
 const toBool = (v: unknown, fallback: boolean): boolean =>
   typeof v === 'boolean' ? v : fallback;
+
+const toStringArray = (v: unknown): string[] =>
+  Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string') : [];
+
+const toVideoPalette = (v: unknown): 'site' | ColorBlindPalette =>
+  v === 'site' || isColorBlindPalette(v) ? v : DEFAULTS.videoPalette;
 
 function readCookie(key: string): string | null {
   if (typeof document === 'undefined') return null;
@@ -140,6 +162,9 @@ function loadInitialSettings(): StoredSettings {
       colorBlindPalette: palette,
       lightMode: toBool(s.lightMode, DEFAULTS.lightMode),
       isSimplifiedMode: toBool(s.isSimplifiedMode, legacySimplified ?? DEFAULTS.isSimplifiedMode),
+      videoPalette: toVideoPalette(s.videoPalette),
+      dmeFocusMode: toBool(s.dmeFocusMode, DEFAULTS.dmeFocusMode),
+      dmeCurtainsLifted: toStringArray(s.dmeCurtainsLifted),
     };
   }
 
@@ -171,6 +196,9 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
   const [colorBlindPalette, setColorBlindPaletteState] = useState<ColorBlindPalette>(initial.colorBlindPalette);
   const [lightMode, setLightMode] = useState(initial.lightMode);
   const [isSimplifiedMode, setIsSimplifiedMode] = useState(initial.isSimplifiedMode);
+  const [videoPalette, setVideoPalette] = useState<'site' | ColorBlindPalette>(initial.videoPalette);
+  const [dmeFocusMode, setDmeFocusMode] = useState(initial.dmeFocusMode);
+  const [dmeCurtainsLifted, setDmeCurtainsLifted] = useState<string[]>(initial.dmeCurtainsLifted);
 
   // Remembers the last non-'none' palette so the legacy toggle has somewhere to return to.
   const lastPalette = useRef<ColorBlindPalette>(
@@ -182,7 +210,7 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
     setColorBlindPaletteState(p);
   };
 
-  // Persist all 7 settings on every change: localStorage (primary) + cookie (fallback).
+  // Persist all settings on every change: localStorage (primary) + cookie (fallback).
   useEffect(() => {
     const payload: StoredSettings = {
       focusMode,
@@ -193,6 +221,9 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
       colorBlindPalette,
       lightMode,
       isSimplifiedMode,
+      videoPalette,
+      dmeFocusMode,
+      dmeCurtainsLifted,
     };
     const raw = JSON.stringify(payload);
     try {
@@ -202,7 +233,7 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
       // Storage may be unavailable (private mode); the cookie below still persists.
     }
     writeCookie(STORE_KEY, raw);
-  }, [focusMode, reduceMotion, dyslexicFont, highContrast, tooltipsEnabled, colorBlindPalette, lightMode, isSimplifiedMode]);
+  }, [focusMode, reduceMotion, dyslexicFont, highContrast, tooltipsEnabled, colorBlindPalette, lightMode, isSimplifiedMode, videoPalette, dmeFocusMode, dmeCurtainsLifted]);
 
   // Apply classes to the body tag so styles ripple through the whole site.
   // Achromatopsia intentionally never touches lightMode: it ships its own
@@ -235,7 +266,12 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
       colorBlindPalette, setColorBlindPalette,
       colorBlindMode: colorBlindPalette !== 'none', toggleColorBlind,
       lightMode, toggleLightMode: () => setLightMode(!lightMode),
-      isSimplifiedMode, toggleSimplifiedMode: () => setIsSimplifiedMode(!isSimplifiedMode)
+      isSimplifiedMode, toggleSimplifiedMode: () => setIsSimplifiedMode(!isSimplifiedMode),
+      videoPalette, setVideoPalette,
+      dmeFocusMode, toggleDmeFocusMode: () => setDmeFocusMode(!dmeFocusMode),
+      dmeCurtainsLifted,
+      liftDmeCurtain: (id: string) => setDmeCurtainsLifted((prev) => (prev.includes(id) ? prev : [...prev, id])),
+      coverDmeCurtain: (id: string) => setDmeCurtainsLifted((prev) => prev.filter((x) => x !== id)),
     }}>
       <div className={isSimplifiedMode ? 'simplified-mode lite-mode' : 'standard-mode'}>
         {children}

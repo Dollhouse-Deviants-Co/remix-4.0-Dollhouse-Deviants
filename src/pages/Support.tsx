@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
 import ShieldCheck from 'lucide-react/dist/esm/icons/shield-check';
 import Zap from 'lucide-react/dist/esm/icons/zap';
@@ -122,9 +123,18 @@ export default function Support() {
               <span className="text-xs uppercase tracking-[0.5em]">System.Autonomy_Protocol // Enabled</span>
             </div>
             <p className="text-zinc-600 text-xs max-w-xl mx-auto leading-relaxed">
-              Subscription funds are allocated directly to platform hosting, trans-rights advocacy through 
-              <strong> The Trevor Project</strong>, and the production of exclusive sanctuary content. 
+              Subscription funds are allocated directly to platform hosting, trans-rights advocacy through
+              <strong> The Trevor Project</strong>, and the production of exclusive sanctuary content.
               All transactions are processed through high-risk secure gateways.
+            </p>
+            <p className="text-xs max-w-xl mx-auto leading-relaxed mt-4">
+              <Link to="/trevor-project" className="text-[#FF9030] underline hover:text-white">
+                What is The Trevor Project?
+              </Link>
+              <span className="text-zinc-600"> · </span>
+              <a href="https://give.thetrevorproject.org/campaign/786401/donate" target="_blank" rel="noopener noreferrer" className="text-[#FF9030] underline hover:text-white">
+                Donate to The Trevor Project
+              </a>
             </p>
           </div>
         </section>

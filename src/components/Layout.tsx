@@ -1,16 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import Footer from './Footer';
 import { useAccess } from '../context/AccessibilityContext';
 import { useAuth } from '../context/AuthContext';
-import { Zap } from 'lucide-react';
+import { Zap, Menu, X } from 'lucide-react';
 import { Nameplate } from './Nameplate';
 import { AccessibilityToggle } from './AccessibilityToggle';
 import { Tooltip } from './Tooltip';
+
+/** Primary site navigation. Mirrors the footer "Explore" list so header,
+ *  footer and mobile menu never disagree about where things live. */
+const PRIMARY_NAV: { to: string; label: string; note?: string }[] = [
+  { to: '/', label: 'Home' },
+  { to: '/our-story', label: 'Our Story' },
+  { to: '/studio', label: 'Studio' },
+  { to: '/boutique', label: 'Boutique' },
+  { to: '/circuit', label: 'Circuit' },
+  { to: '/creations', label: 'Creations' },
+  { to: '/echoes', label: 'Echoes' },
+  { to: '/vault', label: 'Vault', note: '18+' },
+];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { isSimplifiedMode, toggleSimplifiedMode } = useAccess();
   const { user: currentUser, loginWithGoogle } = useAuth();
   const [showSlowLoadTrigger, setShowSlowLoadTrigger] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const firstMenuLinkRef = useRef<HTMLAnchorElement>(null);
+  const location = useLocation();
+
+  // The mobile menu never survives a route change: navigating closes it.
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  // Opening the menu moves focus to its first link; Escape closes it and
+  // returns focus to the menu button.
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      firstMenuLinkRef.current?.focus();
+      const onKey = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          setMobileMenuOpen(false);
+          menuButtonRef.current?.focus();
+        }
+      };
+      window.addEventListener('keydown', onKey);
+      return () => window.removeEventListener('keydown', onKey);
+    }
+    return undefined;
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     // If Simplified Mode is already on, don't show the trigger
@@ -129,7 +169,40 @@ export default function Layout({ children }: { children: React.ReactNode }) {
            </div>
          </div>
          
+         {/* Primary navigation: inline links on desktop, disclosure menu on phone/tablet */}
+         <ul className="hidden lg:flex items-center gap-5 xl:gap-6" aria-label="Primary">
+           {PRIMARY_NAV.map((item) => (
+             <li key={item.to}>
+               <NavLink
+                 to={item.to}
+                 end={item.to === '/'}
+                 className={({ isActive }) =>
+                   `text-xs font-bold uppercase tracking-[0.2em] transition-colors ${
+                     isActive ? 'text-[#FF69B4] underline underline-offset-8 decoration-2' : 'text-zinc-300 hover:text-white'
+                   }`
+                 }
+               >
+                 {item.label}
+                 {item.note ? <span className="ml-1 text-[10px] italic normal-case tracking-normal text-zinc-500">({item.note})</span> : null}
+               </NavLink>
+             </li>
+           ))}
+         </ul>
+
          <div className="flex items-center gap-4 sm:gap-6">
+           {/* Mobile menu button: real button, labelled, focus-visible, Escape closes */}
+           <button
+             ref={menuButtonRef}
+             type="button"
+             className="lg:hidden flex items-center justify-center w-11 h-11 rounded-xl border border-zinc-800 bg-zinc-900 text-zinc-300 hover:border-[#FF69B4]/50 hover:text-white transition-colors"
+             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+             aria-expanded={mobileMenuOpen}
+             aria-controls="dd-primary-menu"
+             onClick={() => setMobileMenuOpen((v) => !v)}
+           >
+             {mobileMenuOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
+           </button>
+
            <AccessibilityToggle />
            
            {/* INSIDE YOUR PROFILE/NAVBAR SECTION */}
@@ -148,17 +221,21 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                  </div>
                  
                  <Tooltip content="Manage Identity" position="bottom">
-                   <div className="w-14 h-14 shrink-0 rounded-full border border-[#FF69B4]/20 overflow-hidden relative group shadow-[0_0_15px_rgba(255,105,180,0.15)] transition-all duration-700 hover:border-[#FF69B4]/50 cursor-pointer">
-                     <img referrerPolicy="no-referrer" 
-                       src="/Sonja-Profile-Picture.webp" 
-                       alt="User Avatar" 
+                   <Link
+                     to="/profile"
+                     aria-label="View your profile"
+                     className="w-14 h-14 shrink-0 rounded-full border border-[#FF69B4]/20 overflow-hidden relative group shadow-[0_0_15px_rgba(255,105,180,0.15)] transition-all duration-700 hover:border-[#FF69B4]/50 block"
+                   >
+                     <img referrerPolicy="no-referrer"
+                       src="/Sonja-Profile-Picture.webp"
+                       alt="User Avatar"
                        className="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-1000"
                        onError={(e) => {
                          e.currentTarget.src = `https://ui-avatars.com/api/?name=${currentUser.displayName || 'User'}&background=FF69B4&color=fff&bold=true`;
                        }}
                      />
                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#FF69B4]/20 to-transparent h-1 w-full animate-scan-slow pointer-events-none" />
-                   </div>
+                   </Link>
                  </Tooltip>
                </>
              ) : (
@@ -178,6 +255,34 @@ export default function Layout({ children }: { children: React.ReactNode }) {
              )}
            </div>
          </div>
+
+         {/* Mobile primary menu: full-width real layout for phone/tablet, not a
+             scaled-down desktop bar. Inside the nav landmark so Focus Mode
+             hides it with the rest of the header, like before. */}
+         {mobileMenuOpen && (
+           <div id="dd-primary-menu" className="lg:hidden basis-full border-t border-zinc-800 bg-black/95 py-4">
+             <ul className="flex flex-col gap-1" aria-label="Primary">
+               {PRIMARY_NAV.map((item, i) => (
+                 <li key={item.to}>
+                   <NavLink
+                     ref={i === 0 ? firstMenuLinkRef : undefined}
+                     to={item.to}
+                     end={item.to === '/'}
+                     onClick={() => setMobileMenuOpen(false)}
+                     className={({ isActive }) =>
+                       `block w-full rounded-lg px-4 py-3 text-sm font-bold uppercase tracking-[0.2em] transition-colors ${
+                         isActive ? 'bg-[#FF69B4]/10 text-[#FF69B4]' : 'text-zinc-200 hover:bg-zinc-900 hover:text-white'
+                       }`
+                     }
+                   >
+                     {item.label}
+                     {item.note ? <span className="ml-2 text-xs italic normal-case tracking-normal text-zinc-500">({item.note})</span> : null}
+                   </NavLink>
+                 </li>
+               ))}
+             </ul>
+           </div>
+         )}
       </nav>
       
       {/* Main Content Landmark */}

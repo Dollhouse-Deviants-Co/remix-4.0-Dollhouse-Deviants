@@ -58,6 +58,9 @@ export default function Footer() {
             <a href="https://give.thetrevorproject.org/campaign/786401/donate" target="_blank" rel="noopener noreferrer" className="inline-block border border-transparent hover:border-[#E65100] hover:shadow-[0_0_15px_rgba(230,81,0,0.6)] px-4 py-2 -ml-4 rounded-lg text-[#FF9030] text-xs font-black uppercase tracking-[0.2em] hover:text-white transition-all duration-300">
               THE TREVOR PROJECT →
             </a>
+            <Link to="/trevor-project" className="block text-[11px] uppercase tracking-[0.2em] text-zinc-400 hover:text-white transition-colors mt-1">
+              What <em>is</em> The Trevor Project?
+            </Link>
           </div>
         </div>
 
@@ -106,6 +109,7 @@ export default function Footer() {
               </a>
             </li>
             <li><Link to="/safety" className="hover:text-[#FF69B4] transition-colors text-[#FF69B4]">Personal Safety & Site Security</Link></li>
+            <li><Link to="/trevor-project" className="text-[#FF69B4] hover:text-white transition-colors">What is The Trevor Project?</Link></li>
             <li><Link to="/compliance" className="text-[#FF69B4] hover:text-white transition-colors">2257 Compliance</Link></li>
             <li><Link to="/privacy" className="text-[#FF69B4] hover:text-white transition-colors">Privacy & Consent</Link></li>
             <li><Link to="/terms" className="text-[#FF69B4] hover:text-white transition-colors">Terms of Service</Link></li>
