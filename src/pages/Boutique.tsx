@@ -1,10 +1,22 @@
 import React from 'react';
 import Layout from '../components/Layout';
+import DustCover from '../components/DustCover';
 import { ShoppingBag, Mail, Zap, Monitor, Sliders } from 'lucide-react';
 
+interface DustInfo {
+  statement: string;
+  image: string;
+}
 
-
-const boutiqueItems = [
+const boutiqueItems: Array<{
+  id: string;
+  name: string;
+  price: string;
+  icon: React.ReactNode;
+  category: string;
+  desc: string;
+  dust?: DustInfo;
+}> = [
   { 
     id: "bp-01", 
     name: "Architect Noir Preset", 
@@ -19,7 +31,11 @@ const boutiqueItems = [
     price: "35.00", 
     icon: <Monitor size={24} />,
     category: "Assets", 
-    desc: "Complete OBS/Stream package including neon borders, 'Stealth Mode' overlays, and custom transitional graphics." 
+    desc: "Complete OBS/Stream package including neon borders, 'Stealth Mode' overlays, and custom transitional graphics.",
+    dust: {
+      statement: "Pardon our dust — the stream kit is still on the workbench.",
+      image: "/images/pinkie-dust-2.webp",
+    },
   },
   { 
     id: "bp-03", 
@@ -27,7 +43,11 @@ const boutiqueItems = [
     price: "20.00", 
     icon: <Zap size={24} />,
     category: "Sound", 
-    desc: "A collection of 10 ambient, industrial lo-fi tracks specifically composed for background use in private galleries." 
+    desc: "A collection of 10 ambient, industrial lo-fi tracks specifically composed for background use in private galleries.",
+    dust: {
+      statement: "Pardon our dust — the Waverly tapes are still being pressed.",
+      image: "/images/pinkie-dust-1.webp",
+    },
   }
 ];
 
@@ -69,6 +89,10 @@ export default function Boutique() {
                     Procure Asset
                   </a>
                 </div>
+
+                {item.dust && (
+                  <DustCover statement={item.dust.statement} imageSrc={item.dust.image} />
+                )}
               </div>
             ))}
           </div>
