@@ -7,7 +7,7 @@ import ShoppingBag from 'lucide-react/dist/esm/icons/shopping-bag';
 import Radio from 'lucide-react/dist/esm/icons/radio';
 import Sparkles from 'lucide-react/dist/esm/icons/sparkles';
 import BookOpen from 'lucide-react/dist/esm/icons/book-open';
-import Lock from 'lucide-react/dist/esm/icons/lock';
+import CircuitBoard from 'lucide-react/dist/esm/icons/circuit-board';
 import Anchor from 'lucide-react/dist/esm/icons/anchor';
 import ArrowRight from 'lucide-react/dist/esm/icons/arrow-right';
 import { Link } from 'react-router-dom';
@@ -20,7 +20,7 @@ const branches = [
   { name: 'The Circuit', icon: Radio, color: 'text-[var(--neon-orange)]', hex: '#FF5F1F', glow: 'hover:shadow-[0_0_100px_rgba(255,95,31,0.4)] hover:bg-[#FF5F1F]/5 hover:border-[#FF5F1F]/50', path: '/circuit', desc: 'Community & social wire' },
   { name: 'The Creations', icon: Sparkles, color: 'text-purple-400', hex: '#c084fc', glow: 'hover:shadow-[0_0_100px_rgba(192,132,252,0.4)] hover:bg-purple-400/5 hover:border-purple-400/50', path: '/creations', desc: 'Content & portfolio' },
   { name: 'The Echoes', icon: BookOpen, color: 'text-[#FF3131]', hex: '#FF3131', glow: 'hover:shadow-[0_0_100px_rgba(255,49,49,0.4)] hover:bg-[#FF3131]/5 hover:border-[#FF3131]/50', path: '/echoes', desc: 'Personal safe journal' },
-  { name: 'The Vault', icon: Lock, color: 'text-[#FF69B4]', hex: '#FF69B4', glow: 'hover:shadow-[0_0_100px_rgba(255,105,180,0.4)] hover:bg-[#FF69B4]/5 hover:border-[#FF69B4]/50', path: '/vault', desc: 'Secure 18+ content' },
+  { name: 'The DEV Locker', icon: CircuitBoard, color: 'text-[#7CF5D3]', hex: '#7CF5D3', glow: 'hover:shadow-[0_0_100px_rgba(124,245,211,0.4)] hover:bg-[#7CF5D3]/5 hover:border-[#7CF5D3]/50', path: '/dev-locker', desc: 'Builds, stickers & the workbench' },
 ];
 
 export default function Hub() {

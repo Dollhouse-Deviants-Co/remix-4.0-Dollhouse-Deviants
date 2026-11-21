@@ -5,11 +5,6 @@ import { useAuth } from '../context/AuthContext';
 import { Zap, ZapOff } from 'lucide-react';
 
 const SafetyResources = () => {
-  const handleQuickExit = () => {
-    // Instantly sends them to a neutral page
-    window.location.replace("https://www.weather.com");
-  };
-
   return (
     <div className="mt-8 pt-8 border-t border-zinc-900 flex flex-wrap gap-6 text-xs uppercase tracking-widest text-zinc-400">
       {/* DISCRETE LINK */}
@@ -17,17 +12,6 @@ const SafetyResources = () => {
         Personal Safety & Site Security
       </a>
       
-      {/* QUICK ESCAPE */}
-      <button 
-        onClick={handleQuickExit}
-        className="bg-zinc-800 px-3 py-1 rounded hover:bg-red-900 text-white font-bold transition-colors"
-      >
-        Quick Exit
-      </button>
-      
-      <span className="ml-auto opacity-30 flex items-center">
-        Hotline: 1-888-373-7888 (Confidential 24/7)
-      </span>
     </div>
   );
 };
@@ -71,7 +55,7 @@ export default function Footer() {
             <li><Link to="/circuit" className="text-[#FF69B4] hover:text-white transition-colors">The Circuit</Link></li>
             <li><Link to="/creations" className="text-[#FF69B4] hover:text-white transition-colors">The Gallery</Link></li>
             <li><Link to="/echoes" className="text-[#FF69B4] hover:text-white transition-colors">The Echoes</Link></li>
-            <li><Link to="/vault" className="text-[#FF69B4] hover:text-white transition-colors italic">The Vault (18+)</Link></li>
+            <li><Link to="/dev-locker" className="text-[#FF69B4] hover:text-white transition-colors">The DEV Locker</Link></li>
           </ul>
         </div>
 
@@ -106,7 +90,6 @@ export default function Footer() {
               </a>
             </li>
             <li><Link to="/safety" className="hover:text-[#FF69B4] transition-colors text-[#FF69B4]">Personal Safety & Site Security</Link></li>
-            <li><Link to="/compliance" className="text-[#FF69B4] hover:text-white transition-colors">2257 Compliance</Link></li>
             <li><Link to="/privacy" className="text-[#FF69B4] hover:text-white transition-colors">Privacy & Consent</Link></li>
             <li><Link to="/terms" className="text-[#FF69B4] hover:text-white transition-colors">Terms of Service</Link></li>
           </ul>

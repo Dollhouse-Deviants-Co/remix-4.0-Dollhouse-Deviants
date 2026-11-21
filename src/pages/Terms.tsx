@@ -25,23 +25,23 @@ export default function Terms() {
           <section className="bg-black/40 border border-zinc-800 p-8 rounded-2xl relative overflow-hidden group hover:border-[#FF69B4]/50 transition-colors">
             <div className="flex items-center gap-4 mb-6">
               <AlertOctagon className="text-[#FF69B4]" size={24} />
-              <h2 className="text-white font-black uppercase tracking-widest text-lg">1. 18+ Access & Compliance</h2>
+              <h2 className="text-white font-black uppercase tracking-widest text-lg">1. Access & Community Standards</h2>
             </div>
             <p className="mb-4">
-              <strong>Dollhouse Deviants is strictly restricted to individuals 18 years of age and older.</strong> By accessing this ecosystem, you legally affirm you are of age. 
+              <strong>Dollhouse Deviants is open to everyone.</strong> This is a general-audience creative space: art, code, music, and community. By using this ecosystem, you agree to keep it that way. 
             </p>
             <p className="mb-4">
-              If you access <strong>The Vault</strong>, you explicitly consent to viewing adult-oriented, explicit material. We process all content under strict adherence to 18 U.S.C. § 2257. False age affirmations will result in permanent system lockouts.
+              We do not host adult or explicit material anywhere on this site. Do not post it, link to it, or solicit it here — accounts that do are removed.
             </p>
           </section>
 
           <section className="bg-black/40 border border-zinc-800 p-8 rounded-2xl relative overflow-hidden group hover:border-[#FF69B4]/50 transition-colors">
             <div className="flex items-center gap-4 mb-6">
               <ShieldAlert className="text-[#FF69B4]" size={24} />
-              <h2 className="text-white font-black uppercase tracking-widest text-lg">2. Intellectual Property (The Vault)</h2>
+              <h2 className="text-white font-black uppercase tracking-widest text-lg">2. Intellectual Property (The DEV Locker)</h2>
             </div>
             <p className="mb-4">
-              All visual, audio, and written content housed within <strong>The Vault</strong> is the exclusive intellectual property of Dollhouse Deviants Productions and its sovereign creators.
+              All visual, audio, and written content on this site is the exclusive intellectual property of Dollhouse Deviants Productions and its sovereign creators.
             </p>
             <p className="text-[#FF69B4] italic font-bold">
               Unsanctioned distribution, scraping, recording, or reproducing of paywalled material is a direct violation of international copyright law.
@@ -69,7 +69,7 @@ export default function Terms() {
           <section className="bg-black/40 border border-zinc-800 p-8 rounded-2xl">
             <h2 className="text-white font-black uppercase tracking-widest text-xs mb-4 text-zinc-500">4. Billing & Subscriptions</h2>
             <p className="mb-4">
-              Access to The Vault and bespoke interactive tier sections are billed strictly upon the final encrypted checkout via CCBill or Segpay. All subscription models are explicitly detailed before transaction. Chargebacks filed fraudulently will result in immediate blacklisting from the Dollhouse network.
+              Access to The DEV Locker and bespoke interactive tier sections are billed through secure checkout via Stripe. All subscription models are explicitly detailed before transaction. Chargebacks filed fraudulently will result in immediate blacklisting from the Dollhouse network.
             </p>
           </section>
 

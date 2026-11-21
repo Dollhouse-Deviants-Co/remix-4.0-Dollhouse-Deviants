@@ -29,7 +29,7 @@ export default function Privacy() {
             </div>
             <p className="mb-4">
               We respect your right to exist without surveillance. We operate on a "Zero Trust" security model across all our endpoints. 
-              We collect <strong>only the minimal data absolutely necessary</strong> for site functionality, account authentication, and legal 18+ verification.
+              We collect <strong>only the minimal data absolutely necessary</strong> for site functionality and account authentication.
             </p>
             <p className="text">
               We do not sell, rent, broker, or otherwise distribute your personal data, identity markers, or browsing habits to third-party marketers or aggregators. Period.
@@ -39,11 +39,10 @@ export default function Privacy() {
           <section className="bg-zinc-900/10 border border-zinc-800 p-8 rounded-2xl relative overflow-hidden group hover:border-[#FF69B4]/50 transition-colors">
             <div className="flex items-center gap-4 mb-6">
               <Lock className="text-[#FF69B4]" size={24} />
-              <h2 className="text-white font-black uppercase tracking-widest text-lg">2. The Vault: Content & Payments</h2>
+              <h2 className="text-white font-black uppercase tracking-widest text-lg">2. The DEV Locker: Content & Payments</h2>
             </div>
             <p className="mb-4">
-              Accessing explicit, paywalled content within <strong>The Vault</strong> requires specialized legal protocols. 
-              High-risk transactions are processed directly through certified, 18+ compliant payment gateways (CCBill/Segpay).
+              Paywalled content within <strong>The DEV Locker</strong> is billed through Stripe. 
             </p>
             <ul className="list-disc pl-6 space-y-3 mb-4 text-zinc-500">
               <li><strong className="text-zinc-300">No Raw Data:</strong> We do not store full credit card numbers or raw financial metadata on Dollhouse databases.</li>

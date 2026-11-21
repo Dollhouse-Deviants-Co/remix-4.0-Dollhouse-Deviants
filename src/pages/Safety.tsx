@@ -54,7 +54,7 @@ export default function Safety() {
               <EyeOff className="text-[#FF69B4] mb-4" size={24} />
               <h3 className="text-white font-bold uppercase mb-2 tracking-tight">Stealth Browsing</h3>
               <p className="text-sm leading-relaxed">
-                We recommend using "Incognito" or "Private" modes when accessing the Vault. 
+                We recommend using "Incognito" or "Private" modes on shared devices. 
                 Always clear your cache if you share a device with others.
               </p>
             </div>
@@ -116,7 +116,7 @@ export default function Safety() {
 
           {/* FOOTER NOTE */}
           <footer className="mt-20 text-center opacity-30 text-xs uppercase tracking-[0.2em]">
-            Protocol 2257-S • Verified Safety Environment • © Dollhouse Deviants
+            Verified Safety Environment • © Dollhouse Deviants
           </footer>
         </div>
       </div>

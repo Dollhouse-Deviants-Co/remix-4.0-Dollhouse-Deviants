@@ -79,7 +79,6 @@ export default function AdminDashboard() {
           <SidebarButton active={activeTab === 'live'} onClick={() => setActiveTab('live')} label="Live Status" />
           <SidebarButton active={activeTab === 'schedule'} onClick={() => setActiveTab('schedule')} label="Weekly Logic" />
           <SidebarButton active={activeTab === 'assets'} onClick={() => setActiveTab('assets')} label="Deploy Assets" />
-          <SidebarButton active={activeTab === 'content'} onClick={() => setActiveTab('content')} label="Content Hub" />
           <SidebarButton active={activeTab === 'socials'} onClick={() => setActiveTab('socials')} label="Brand Socials" />
           <SidebarButton active={activeTab === 'webhooks'} onClick={() => setActiveTab('webhooks')} label="Webhooks" />
           <SidebarButton active={activeTab === 'squircle'} onClick={() => setActiveTab('squircle')} label="Squircle Lab" />
@@ -95,7 +94,6 @@ export default function AdminDashboard() {
           {activeTab === 'live' && <LiveStatusTab />}
           {activeTab === 'schedule' && <WeeklyScheduleTab />}
           {activeTab === 'assets' && <AssetDeploymentTab />}
-          {activeTab === 'content' && <ContentHubTab />}
           {activeTab === 'socials' && <BrandSocialsTab />}
           {activeTab === 'webhooks' && <WebhooksTab />}
           {activeTab === 'squircle' && <SquircleLabTab />}
@@ -195,7 +193,7 @@ function LiveStatusTab() {
       
       <div className="bg-[#1A1A1B] border border-[#2D2D2D] p-6 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
-          <h3 className="text-2xl font-bold uppercase tracking-wider text-white">Chaturbate Uplink</h3>
+          <h3 className="text-2xl font-bold uppercase tracking-wider text-white">Live Uplink</h3>
           <p className="text-[#A3A3A3] text-sm font-mono mt-2">Force 'LIVE NOW' indicators across all public nodes.</p>
         </div>
         
@@ -224,10 +222,10 @@ function LiveStatusTab() {
 
 function WeeklyScheduleTab() {
   const [schedule, setSchedule] = useState([
-    { id: '1', day: 'Monday', activity: 'LIVE ON CHATURBATE', platform: 'Chaturbate' },
-    { id: '2', day: 'Tuesday', activity: 'NEW VAULT DROP', platform: 'Clips4Sale' },
-    { id: '3', day: 'Thursday', activity: 'CUSTOM COMMISSIONS', platform: 'Clips4Sale' },
-    { id: '4', day: 'Weekend', activity: 'DEVIANT ARCHIVE', platform: 'Pornhub' },
+    { id: '1', day: 'Monday', activity: 'LIVE BUILD SESSION', platform: 'DEV Locker' },
+    { id: '2', day: 'Tuesday', activity: 'NEW LOCKER DROP', platform: 'Boutique' },
+    { id: '3', day: 'Thursday', activity: 'CUSTOM COMMISSIONS', platform: 'Boutique' },
+    { id: '4', day: 'Weekend', activity: 'STICKER PACK PREP', platform: 'Boutique' },
   ]);
   const [loading, setLoading] = useState(false);
 
@@ -295,85 +293,6 @@ function WeeklyScheduleTab() {
       <div className="flex flex-col md:flex-row justify-between gap-4">
         <ActionButton label="+ Add Node" variant="secondary" onClick={() => setSchedule([...schedule, { id: Date.now().toString(), day: 'New Day', activity: 'NEW ACTIVITY', platform: 'Platform' }])} />
         <ActionButton label={loading ? "Syncing..." : "Sync to Public"} onClick={handleSync} disabled={loading} />
-      </div>
-    </div>
-  );
-}
-
-function ContentHubTab() {
-  const [clips4SaleRss, setClips4SaleRss] = useState("https://clips4sale.com/rss/123456");
-  const [pornhubNode, setPornhubNode] = useState("https://pornhub.com/model/dollhouse_deviant");
-  const [onlyFansUrl, setOnlyFansUrl] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (!db) return;
-    const unsub = onSnapshot(doc(db, 'config', 'contentLinks'), (docSnap) => {
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        if (data.clips4SaleRss) setClips4SaleRss(data.clips4SaleRss);
-        if (data.pornhubNode) setPornhubNode(data.pornhubNode);
-        if (data.onlyFansUrl) setOnlyFansUrl(data.onlyFansUrl);
-      }
-    });
-    return () => unsub();
-  }, []);
-
-  const handleUpdate = async () => {
-    if (!db) return;
-    setLoading(true);
-    try {
-      await setDoc(doc(db, 'config', 'contentLinks'), { clips4SaleRss, pornhubNode, onlyFansUrl });
-      alert("Content Routing Updated.");
-    } catch (error) {
-      console.error("Error updating routing:", error);
-      alert("Failed to update routing.");
-    }
-    setLoading(false);
-  };
-
-  return (
-    <div className="animate-fade-in space-y-8">
-      <header className="border-b border-[#2D2D2D] pb-4">
-        <h2 className="text-3xl font-black uppercase tracking-widest">Content <span className="text-[#FF69B4]">Manager</span></h2>
-      </header>
-      
-      <div className="space-y-6 bg-[#1A1A1B] border border-[#2D2D2D] p-6 md:p-10">
-        <div>
-          <label className="block text-xs font-bold uppercase tracking-widest text-[#A3A3A3] mb-2">Clips4Sale RSS Feed URL</label>
-          <input 
-            type="text" 
-            value={clips4SaleRss} 
-            onChange={(e) => setClips4SaleRss(e.target.value)}
-            aria-label="Clips4Sale RSS Feed URL"
-            className="min-h-[48px] w-full bg-[#0a0a0a] border border-[#2D2D2D] px-4 text-white focus:border-[#FF69B4] focus:outline-none font-mono shadow-inner" 
-          />
-        </div>
-        <div>
-          <label className="block text-xs font-bold uppercase tracking-widest text-[#A3A3A3] mb-2">Pornhub Model Node</label>
-          <input 
-            type="text" 
-            value={pornhubNode} 
-            onChange={(e) => setPornhubNode(e.target.value)}
-            aria-label="Pornhub Model Node URL"
-            className="min-h-[48px] w-full bg-[#0a0a0a] border border-[#2D2D2D] px-4 text-white focus:border-[#FF69B4] focus:outline-none font-mono shadow-inner" 
-          />
-        </div>
-        <div>
-          <label className="block text-xs font-bold uppercase tracking-widest text-[#A3A3A3] mb-2">OnlyFans Profile URL</label>
-          <input 
-            type="text" 
-            value={onlyFansUrl} 
-            onChange={(e) => setOnlyFansUrl(e.target.value)}
-            placeholder="https://onlyfans.com/dollhouse_deviant"
-            aria-label="OnlyFans Profile URL"
-            className="min-h-[48px] w-full bg-[#0a0a0a] border border-[#2D2D2D] px-4 text-white focus:border-[#FF69B4] focus:outline-none font-mono shadow-inner" 
-          />
-        </div>
-      </div>
-      
-      <div className="flex justify-end">
-        <ActionButton label={loading ? "Updating..." : "Update Routing"} onClick={handleUpdate} disabled={loading} />
       </div>
     </div>
   );
@@ -542,7 +461,7 @@ function BrandSocialsTab() {
 
 function WebhooksTab() {
   const [discordUrl, setDiscordUrl] = useState("");
-  const [liveMessage, setLiveMessage] = useState("🚨 **Dollhouse Deviants is LIVE NOW!** 🚨\nJoin the broadcast: https://chaturbate.com/dollhouse_deviant");
+  const [liveMessage, setLiveMessage] = useState("🚨 **Dollhouse Deviants is LIVE NOW!** 🚨\nJoin us in the DEV Locker: https://dollhousedeviants.com/dev-locker");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -777,7 +696,7 @@ function AssetDeploymentTab() {
     title: '',
     category: 'Digital Noir',
     description: '',
-    target: 'Studio' // Studio or Vault
+    target: 'Studio' // Studio only — Vault sealed
   });
   const [file, setFile] = useState<File | null>(null);
 
@@ -793,7 +712,7 @@ function AssetDeploymentTab() {
 
     try {
       // 1. Upload to Firebase Storage
-      const area = formData.target === 'Vault' ? 'vault' : 'studio';
+      const area = 'studio';
       const storageRef = ref(
         storage,
         `gallery/${area}/${Date.now()}_${file.name}`
@@ -802,7 +721,7 @@ function AssetDeploymentTab() {
       const downloadURL = await getDownloadURL(snapshot.ref);
 
       // 2. Save Metadata to Firestore
-      const collectionName = formData.target === 'Vault' ? 'vaultItems' : 'studioItems';
+      const collectionName = 'studioItems';
       await addDoc(collection(db, collectionName), {
         title: formData.title,
         category: formData.category,
@@ -871,7 +790,6 @@ function AssetDeploymentTab() {
               onChange={(e) => setFormData({...formData, target: e.target.value})}
             >
               <option value="Studio">The Studio (SFW Gallery)</option>
-              <option value="Vault">The Vault (18+ Content)</option>
             </select>
           </div>
 

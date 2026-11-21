@@ -12,7 +12,7 @@ import { AccessibilityProvider } from './context/AccessibilityContext';
 import Hub from './pages/Hub';
 
 // LAZY PAGES (Heavy or Secondary)
-const Vault = lazy(() => import('./pages/Vault'));
+const DevLocker = lazy(() => import('./pages/DevLocker'));
 const Studio = lazy(() => import('./pages/Studio'));
 const Boutique = lazy(() => import('./pages/Boutique'));
 const Creations = lazy(() => import('./pages/Creations'));
@@ -21,14 +21,11 @@ const Echoes = lazy(() => import('./pages/Echoes'));
 const About = lazy(() => import('./pages/About'));
 const OurStory = lazy(() => import('./pages/OurStory'));
 const Support = lazy(() => import('./pages/Support'));
-const Compliance = lazy(() => import('./pages/Compliance'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
 const Safety = lazy(() => import('./pages/Safety'));
 const UserProfile = lazy(() => import('./pages/UserProfile'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
-const SplashGate = lazy(() => import('./pages/SplashGate'));
-const VaultGate = lazy(() => import('./pages/VaultGate'));
 
 import { ProtectedRoute } from './components/ProtectedRoute';
 import TrevorBanner from './components/TrevorBanner';
@@ -58,11 +55,9 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Hub />} />
               <Route path="/hub" element={<Hub />} />
-              <Route path="/gate" element={<SplashGate />} />
-              <Route path="/vault-gate" element={<VaultGate />} />
-              <Route path="/vault" element={
+              <Route path="/dev-locker" element={
                 <Suspense fallback={<LoadingScreen />}>
-                  <Vault />
+                  <DevLocker />
                 </Suspense>
               } />
               <Route path="/studio" element={
@@ -84,7 +79,6 @@ export default function App() {
               <Route path="/our-story" element={<OurStory />} />
               <Route path="/support" element={<Support />} />
               <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/compliance" element={<Compliance />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/safety" element={<Safety />} />

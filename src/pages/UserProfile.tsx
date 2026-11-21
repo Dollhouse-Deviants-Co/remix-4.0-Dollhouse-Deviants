@@ -3,15 +3,12 @@ import { useAuth } from '../context/AuthContext';
 import { Navigate, Link } from 'react-router-dom';
 import { db } from '@/lib/firebase';
 import { doc, onSnapshot, setDoc, getDoc } from 'firebase/firestore';
-import { VAULT_ASSETS } from '../assets';
-import { User, LogOut, Film, ArrowLeft, ShieldCheck, Twitter, Instagram, MessageCircle, ExternalLink, Save, Cloud, MessageSquare, Ghost, AtSign, Music, Type } from 'lucide-react';
-import SafeImage from '../components/SafeImage';
+import { User, LogOut, ArrowLeft, Twitter, Instagram, MessageCircle, ExternalLink, Save, Cloud, MessageSquare, Ghost, AtSign, Music, Type } from 'lucide-react';
 
 
 
 export default function UserProfile() {
-  const { user, logout, isAgeVerified } = useAuth();
-  const [unlockedItems, setUnlockedItems] = useState<string[]>(['v1', 'v4']); // Free items
+  const { user, logout } = useAuth();
   const [userSocials, setUserSocials] = useState({ twitter: '', instagram: '', reddit: '', bluesky: '', discord: '', snapchat: '', threads: '', tiktok: '', tumblr: '' });
   const [brandSocials, setBrandSocials] = useState({ twitter: '', instagram: '', reddit: '', bluesky: '', discord: '', snapchat: '', threads: '', tiktok: '', tumblr: '' });
   const [savingSocials, setSavingSocials] = useState(false);
@@ -21,8 +18,6 @@ export default function UserProfile() {
     const unsub = onSnapshot(doc(db, 'users', user.uid), (docSnap) => {
       if (docSnap.exists()) {
         const data = docSnap.data();
-        const assets = data.unlockedAssets || [];
-        setUnlockedItems(prev => Array.from(new Set([...prev, ...assets])));
         if (data.socialHandles) {
           setUserSocials({
             twitter: data.socialHandles.twitter || '',
@@ -81,18 +76,16 @@ export default function UserProfile() {
     setSavingSocials(false);
   };
 
-  if (!isAgeVerified) return <Navigate to="/gate" />;
-  if (!user) return <Navigate to="/vault" />;
+  if (!user) return <Navigate to="/hub" />;
 
-  const unlockedAssetsData = VAULT_ASSETS.filter(asset => unlockedItems.includes(asset.id));
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-[#E5E5E5] font-sans p-6 md:p-12">
       <div className="max-w-5xl mx-auto">
         <header className="mb-12 flex flex-col md:flex-row justify-between items-start md:items-end border-b border-[#2D2D2D] pb-6">
           <div>
-            <Link to="/vault" className="inline-flex items-center gap-2 text-[#A3A3A3] hover:text-[#FF69B4] transition-colors mb-4 font-mono text-xs uppercase tracking-widest">
-              <ArrowLeft size={14} /> Return to Vault
+            <Link to="/hub" className="inline-flex items-center gap-2 text-[#A3A3A3] hover:text-[#FF69B4] transition-colors mb-4 font-mono text-xs uppercase tracking-widest">
+              <ArrowLeft size={14} /> Return to Hub
             </Link>
             <h1 className="text-4xl md:text-5xl font-black uppercase tracking-widest text-white drop-shadow-[0_0_10px_rgba(255,105,180,0.5)]">
               Deviant <span className="text-[#FF69B4]">Profile</span>
@@ -119,10 +112,6 @@ export default function UserProfile() {
                 <div className="flex justify-between">
                   <span>CLEARANCE:</span>
                   <span className="text-white">STANDARD</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>DECRYPTED ASSETS:</span>
-                  <span className="text-[#FF69B4] font-bold">{unlockedAssetsData.length}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>STATUS:</span>
@@ -333,52 +322,6 @@ export default function UserProfile() {
             </div>
           </div>
 
-          {/* Unlocked Assets */}
-          <div className="md:col-span-2">
-            <h2 className="text-2xl font-black uppercase tracking-widest text-white mb-6 flex items-center gap-2">
-              <Film className="text-[#FF69B4]" /> Decrypted Assets
-            </h2>
-            
-            {unlockedAssetsData.length === 0 ? (
-              <div className="bg-[#1A1A1B] border border-[#2D2D2D] p-12 text-center">
-                <p className="text-[#A3A3A3] font-mono uppercase tracking-widest">No assets decrypted yet.</p>
-                <Link to="/vault" className="inline-block mt-4 text-[#FF69B4] hover:text-white transition-colors font-bold uppercase tracking-widest text-sm border-b border-[#FF69B4] pb-1">
-                  Browse Vault
-                </Link>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {unlockedAssetsData.map(asset => (
-                  <Link 
-                    key={asset.id} 
-                    to="/vault"
-                    className="group bg-[#1A1A1B] border border-[#2D2D2D] overflow-hidden hover:border-[#FF69B4] transition-colors flex flex-col"
-                  >
-                    <div className="relative aspect-video bg-[#0a0a0a]">
-                      <SafeImage 
-                        src={asset.thumbnail} 
-                        alt={asset.title}
-                        className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
-                        <span className="bg-[#FF69B4] text-[#0a0a0a] font-black uppercase tracking-widest text-xs px-3 py-1">Play in Vault</span>
-                      </div>
-                    </div>
-                    <div className="p-3 border-t border-[#2D2D2D]">
-                      <h3 className="font-bold uppercase tracking-wide text-sm text-white group-hover:text-[#FF69B4] transition-colors truncate">
-                        {asset.title}
-                      </h3>
-                      <div className="flex items-center gap-2 mt-1 text-xs font-mono text-[#A3A3A3]">
-                        <ShieldCheck size={12} className="text-green-500" />
-                        <span>LIFETIME ACCESS</span>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
         </div>
       </div>
     </div>

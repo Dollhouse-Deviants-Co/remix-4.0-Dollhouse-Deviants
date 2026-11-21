@@ -1,5 +1,7 @@
 import React from 'react';
 import Layout from '../components/Layout';
+import CheckoutButton from '../components/CheckoutButton';
+import type { CheckoutProductId } from '../lib/checkoutProducts';
 import ShieldCheck from 'lucide-react/dist/esm/icons/shield-check';
 import Zap from 'lucide-react/dist/esm/icons/zap';
 import Crown from 'lucide-react/dist/esm/icons/crown';
@@ -9,7 +11,34 @@ import Terminal from 'lucide-react/dist/esm/icons/terminal';
 
 
 
-const tiers = [
+interface SupportTier {
+  name: string;
+  price: string;
+  tagline: string;
+  description: string;
+  features: string[];
+  buttonText: string;
+  highlight: boolean;
+  /** When set, the tier button is a Stripe checkout button (mailto fallback). */
+  checkoutProductId?: CheckoutProductId;
+}
+
+const tiers: SupportTier[] = [
+  {
+    name: "Supporter",
+    price: "$8/mo",
+    tagline: "Keep the Lights On",
+    description: "Monthly support that keeps the Sanctuary running — hosting, new drops, and the work behind the scenes. Cancel anytime.",
+    features: [
+      "Directly funds hosting and new work",
+      "Early Access to Boutique Drops",
+      "Supporter-Only Updates",
+      "Cancel Anytime"
+    ],
+    buttonText: "Become a Supporter",
+    highlight: false,
+    checkoutProductId: "supporter",
+  },
   {
     name: "Deviant Member",
     price: "Free",
@@ -30,7 +59,7 @@ const tiers = [
     tagline: "The Inner Circle",
     description: "The highest clearance level. You don't just watch the Dollhouse; you help build it.",
     features: [
-      "Full Vault Access (18+ Content)",
+      "Full DEV Locker Access",
       "Exclusive Architect-Only Logs",
       "Early Access to Boutique Drops",
       "The Neon 'Architect' Profile Badge",
@@ -65,7 +94,7 @@ export default function Support() {
 
         {/* --- TIER GRID --- */}
         <section className="max-w-5xl mx-auto px-6 pb-32">
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {tiers.map((tier) => (
               <div 
                 key={tier.name}
@@ -104,13 +133,27 @@ export default function Support() {
                   ))}
                 </ul>
 
-                <button className={`w-full py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-xs transition-all border border-transparent duration-300 ${
-                  tier.highlight
-                    ? 'bg-[#FF1E89] hover:bg-white hover:text-black hover:border-white text-white shadow-[0_0_20px_rgba(255,30,137,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.7)]'
-                    : 'bg-zinc-800 hover:bg-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-white hover:shadow-[0_0_15px_rgba(161,161,170,0.6)]'
-                }`}>
-                  {tier.buttonText}
-                </button>
+                {tier.checkoutProductId ? (
+                  <CheckoutButton
+                    productId={tier.checkoutProductId}
+                    fallbackHref={`mailto:sonja-on-fire@dollhousedeviants.com?subject=Supporter Tier: ${tier.name}`}
+                    label={tier.buttonText}
+                    layoutClassName="w-full"
+                    className={`w-full py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-xs transition-all border border-transparent duration-300 ${
+                      tier.highlight
+                        ? 'bg-[#FF1E89] hover:bg-white hover:text-black hover:border-white text-white shadow-[0_0_20px_rgba(255,30,137,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.7)]'
+                        : 'bg-zinc-800 hover:bg-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-white hover:shadow-[0_0_15px_rgba(161,161,170,0.6)]'
+                    }`}
+                  />
+                ) : (
+                  <button className={`w-full py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-xs transition-all border border-transparent duration-300 ${
+                    tier.highlight
+                      ? 'bg-[#FF1E89] hover:bg-white hover:text-black hover:border-white text-white shadow-[0_0_20px_rgba(255,30,137,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.7)]'
+                      : 'bg-zinc-800 hover:bg-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-white hover:shadow-[0_0_15px_rgba(161,161,170,0.6)]'
+                  }`}>
+                    {tier.buttonText}
+                  </button>
+                )}
               </div>
             ))}
           </div>
@@ -124,7 +167,7 @@ export default function Support() {
             <p className="text-zinc-600 text-xs max-w-xl mx-auto leading-relaxed">
               Subscription funds are allocated directly to platform hosting, trans-rights advocacy through 
               <strong> The Trevor Project</strong>, and the production of exclusive sanctuary content. 
-              All transactions are processed through high-risk secure gateways.
+              All transactions are processed securely through Stripe.
             </p>
           </div>
         </section>

@@ -20,7 +20,7 @@ export default function Circuit() {
       role: "architect",
       isStaff: true,
       timestamp: "Entry: 04.18.2026",
-      content: `The heavy doors of the Dollhouse are finally open. \n\nThis sanctuary was built out of a necessity for autonomy. In a world that seeks to commodify, judge, or restrict the unconventional, we have created a digital black-site where the rules are written by us. \n\nWhether you are here for the art in the Gallery, the raw energy of the Boutique, or the guarded secrets within the Vault—know that you are in a space defined by absolute consent and unwavering security. \n\nWe don't just host content; we protect the creators and the community that makes this possible. Welcome to the new standard. \n\nStay deviant.`,
+      content: `The heavy doors of the Dollhouse are finally open. \n\nThis sanctuary was built out of a necessity for autonomy. In a world that seeks to commodify, judge, or restrict the unconventional, we have created a digital black-site where the rules are written by us. \n\nWhether you are here for the art in the Gallery, the raw energy of the Boutique, or the workbench inside the DEV Locker—know that you are in a space defined by absolute consent and unwavering security. \n\nWe don't just host content; we protect the creators and the community that makes this possible. Welcome to the new standard. \n\nStay deviant.`,
       tags: ["Manifesto", "SanctuaryProtocol", "ArchitectLog"],
       isPinned: true,
       image: null,
@@ -154,21 +154,21 @@ export default function Circuit() {
             <div className="flex flex-wrap gap-4">
               {/* NEW COMPLIANCE QUICK LINK */}
               <a 
-                href="/compliance" 
+                href="/safety" 
                 className="flex items-center gap-3 bg-zinc-800 hover:bg-zinc-700 text-white px-5 py-3 rounded-xl transition-all border border-zinc-700 group"
               >
                 <div className="p-2 bg-[#FF1E89]/10 rounded-lg group-hover:bg-[#FF1E89]/20">
                   <ShieldCheck size={18} className="text-[#FF69B4]" />
                 </div>
                 <div className="text-left">
-                  <p className="text-xs uppercase font-bold tracking-tight">Legal Audit</p>
-                  <p className="text-[11px] text-zinc-500">View 2257 & Safety Records</p>
+                  <p className="text-xs uppercase font-bold tracking-tight">Safety Records</p>
+                  <p className="text-[11px] text-zinc-500">View safety & site records</p>
                 </div>
               </a>
 
               {/* OTHER ADMIN ACTIONS... */}
               <button className="bg-zinc-800 border border-transparent hover:border-zinc-500 hover:shadow-[0_0_15px_rgba(161,161,170,0.6)] px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-white transition-all duration-300">
-                Manage Vault Items
+                Manage Locker Items
               </button>
             </div>
           </div>

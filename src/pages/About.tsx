@@ -79,7 +79,7 @@ export default function About() {
               { title: 'The Studio', desc: 'Turning struggle into high-fashion editorial art.' },
               { title: 'The Boutique', desc: 'Adorning ourselves in the beauty we always deserved.' },
               { title: 'The Gallery', desc: 'A community space for the trans and neurodivergent voice.' },
-              { title: 'The Vault', desc: 'Unapologetic authenticity. Adult, intimate, and raw.' }
+              { title: 'The DEV Locker', desc: 'Where the code lives. Builds, stickers, and the workbench behind the Dollhouse.' }
             ].map((pillar) => (
               <div key={pillar.title} className="p-8 border border-zinc-800 hover:border-[#FF69B4]/50 hover:shadow-[0_0_20px_rgba(255,105,180,0.1)] transition-all duration-500 group">
                 <h4 className="text-white font-bold italic uppercase mb-4 group-hover:text-[#FF69B4]">{pillar.title}</h4>

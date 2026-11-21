@@ -73,7 +73,7 @@ export const UpgradeModal = ({ isOpen, onClose }: UpgradeModalProps) => {
             Architect Tier Benefits:
           </h4>
           <ul className="space-y-3">
-            {['Full Vault Access', 'Private Architect Logs', 'Early Boutique Drops'].map((benefit) => (
+            {['Full DEV Locker Access', 'Private Architect Logs', 'Early Boutique Drops'].map((benefit) => (
               <li key={benefit} className="flex items-center gap-3 text-xs uppercase font-bold text-zinc-500">
                 <div className="w-1.5 h-1.5 bg-[#FF69B4] rounded-full shadow-[0_0_5px_#FF69B4]" />
                 {benefit}
