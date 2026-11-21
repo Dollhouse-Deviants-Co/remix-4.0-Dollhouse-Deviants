@@ -1438,6 +1438,34 @@ body.light-mode .glow-auto {
   --glow-bright: color-mix(in srgb, currentColor 55%, white);
 }
 
+/* Fallback for browsers without color-mix(): .glow-auto and the
+   .glow-cb-* ramps derive their stops from currentColor via color-mix.
+   Where color-mix() doesn't compute, the tier gradient goes invalid and
+   the text — color: transparent, background clipped to the glyphs —
+   vanishes into the black background (black on black). That is the
+   header title on the main page in an older browser. Give those
+   browsers plain specimen ramps instead, so the title stays readable. */
+@supports not (color: color-mix(in srgb, red, blue)) {
+  .glow-auto {
+    --glow-dark: #fffff0; --glow-mid: #f8f8ff; --glow-bright: #ffffff; --glow-ink: #ffffff;
+  }
+  body.light-mode .glow-auto {
+    --glow-dark: #000000; --glow-mid: #52525b; --glow-bright: #18181b; --glow-ink: #18181b;
+  }
+  .glow-cb-accent {
+    --glow-dark: #a31356; --glow-mid: #e91a7c; --glow-bright: #FF1E89; --glow-ink: #FF1E89;
+  }
+  .glow-cb-cool {
+    --glow-dark: #00707e; --glow-mid: #00c2dc; --glow-bright: #00E5FF; --glow-ink: #00E5FF;
+  }
+  .glow-cb-warm {
+    --glow-dark: #8e3d00; --glow-mid: #FF5F1F; --glow-bright: #ff9a66; --glow-ink: #FF5F1F;
+  }
+  .glow-cb-violet {
+    --glow-dark: #6e1a86; --glow-mid: #D946EF; --glow-bright: #f0a6ff; --glow-ink: #D946EF;
+  }
+}
+
 /* Achromatopsia: no gradient at all — solid grayscale ink, in both
    themes. Legibility and pure grayscale outrank the effect here. */
 body.cb-achromatopsia .glow-shift,

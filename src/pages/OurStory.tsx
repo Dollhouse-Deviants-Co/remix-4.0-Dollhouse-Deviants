@@ -9,7 +9,7 @@ export default function OurStory() {
   return (
     <Layout>
       <div className="max-w-4xl w-full mx-auto pb-20 pt-10 px-4">
-        <h1 className="text-7xl md:text-8xl font-black uppercase text-white tracking-tighter leading-[0.9] mb-12">
+        <h1 className="text-5xl md:text-6xl font-black uppercase text-white tracking-tighter leading-[0.9] mb-12">
           <span className="text-cyan-400 font-italic italic">Sonja</span> (Founder)'s Note.
         </h1>
         

@@ -113,7 +113,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Navigation Landmark - Pushed to top left */}
       <nav className="z-20 w-full px-4 sm:px-6 py-6 flex flex-wrap justify-between items-center gap-y-4" aria-label="Main Navigation">
          <div className="flex items-center gap-4 sm:gap-6">
-           <a href="/" className="flex items-center gap-4 text-white font-serif tracking-widest text-4xl hover:text-[#FF69B4] transition-colors duration-500">
+           <a href="/" className="flex items-center gap-4 text-white text-4xl hover:text-[#FF69B4] transition-colors duration-500">
              <img referrerPolicy="no-referrer"
                src="/dd-sfw-logo-no-main.webp"
                alt="Dollhouse Deviants Logo"
@@ -124,23 +124,27 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                decoding="async"
                className="h-20 w-auto rounded-sm object-contain shadow-[0_0_15px_rgba(255,105,180,0.15)]"
              />
-             <span className="uppercase font-light hidden md:inline-block glow-shift glow-auto glow-s11">Dollhouse Deviants</span>
+             <span className="uppercase font-sans font-bold italic underline decoration-zinc-800 tracking-tighter hidden md:inline-block glow-shift glow-pink glow-s9">Dollhouse Deviants</span>
            </a>
            
            {/* Site-wide Core Values Symbols */}
            <div className="flex items-center gap-3 pl-4 sm:pl-6 border-l border-zinc-800">
              <Tooltip content="Neurodiversity">
-               <img referrerPolicy="no-referrer" 
-                 src="/neurodiversity.webp" 
-                 alt="Neurodiversity Affirming"
+               <svg
+                 role="img"
+                 aria-label="Neurodiversity Affirming"
                  width="48"
                  height="48"
-                 className="h-12 w-12 object-contain hover:scale-110 hover:shadow-[0_0_20px_rgba(255,105,180,0.3)] transition-all duration-300 rounded-full sharp-icon" 
-                 onError={(e) => {
-                   e.currentTarget.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z"/></svg>`;
-                   e.currentTarget.classList.add("opacity-50");
-                 }}
-               />
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="#FF69B4"
+                 strokeWidth="2.5"
+                 strokeLinecap="round"
+                 strokeLinejoin="round"
+                 className="h-12 w-12 hover:scale-110 hover:shadow-[0_0_20px_rgba(255,105,180,0.3)] transition-all duration-300 sharp-icon"
+               >
+                 <path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z" />
+               </svg>
              </Tooltip>
              <Tooltip content="Transgender Affirming">
                <img referrerPolicy="no-referrer" 
