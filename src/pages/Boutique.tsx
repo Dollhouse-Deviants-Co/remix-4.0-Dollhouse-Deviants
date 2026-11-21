@@ -1,17 +1,45 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import { ShoppingBag, Mail, Zap, Monitor, Sliders } from 'lucide-react';
+import CheckoutButton from '../components/CheckoutButton';
+import type { CheckoutProductId } from '../lib/checkoutProducts';
+import DustCover from '../components/DustCover';
+import { ShoppingBag, Mail, Zap, Monitor, Sliders, Palette } from 'lucide-react';
 
+interface DustInfo {
+  statement: string;
+  image: string;
+}
 
+interface BoutiqueItem {
+  id: string;
+  name: string;
+  price: string;
+  icon: React.ReactNode;
+  category: string;
+  desc: string;
+  /** When set, the card gets a Stripe checkout button (mailto fallback). */
+  checkoutProductId?: CheckoutProductId;
+  dust?: DustInfo;
+}
 
-const boutiqueItems = [
+const boutiqueItems: BoutiqueItem[] = [
   { 
     id: "bp-01", 
     name: "Architect Noir Preset", 
     price: "15.00", 
     icon: <Sliders size={24} />,
     category: "Editing", 
-    desc: "The signature low-light, high-contrast look used across the Dollhouse Deviants visuals. Perfect for industrial or noir-style portraits." 
+    desc: "The signature low-light, high-contrast look used across the Dollhouse Deviants visuals. Perfect for industrial or noir-style portraits.",
+    checkoutProductId: "architect-noir",
+  },
+  { 
+    id: "bp-04", 
+    name: "Cyber-Noir Preset Pack", 
+    price: "10.99", 
+    icon: <Palette size={24} />,
+    category: "Editing", 
+    desc: "Ten Lightroom presets for the signature Cyber-Noir grade — low-light, high-contrast, pink-on-black. The exact look behind the Dollhouse visuals.",
+    checkoutProductId: "cyber-noir-preset-pack",
   },
   { 
     id: "bp-02", 
@@ -19,7 +47,11 @@ const boutiqueItems = [
     price: "35.00", 
     icon: <Monitor size={24} />,
     category: "Assets", 
-    desc: "Complete OBS/Stream package including neon borders, 'Stealth Mode' overlays, and custom transitional graphics." 
+    desc: "Complete OBS/Stream package including neon borders, 'Stealth Mode' overlays, and custom transitional graphics.",
+    dust: {
+      statement: "Pardon our dust — the stream kit is still on the workbench.",
+      image: "/images/pinkie-dust-2.webp",
+    },
   },
   { 
     id: "bp-03", 
@@ -27,7 +59,11 @@ const boutiqueItems = [
     price: "20.00", 
     icon: <Zap size={24} />,
     category: "Sound", 
-    desc: "A collection of 10 ambient, industrial lo-fi tracks specifically composed for background use in private galleries." 
+    desc: "A collection of 10 ambient, industrial lo-fi tracks specifically composed for background use in private galleries.",
+    dust: {
+      statement: "Pardon our dust — the Waverly tapes are still being pressed.",
+      image: "/images/pinkie-dust-1.webp",
+    },
   }
 ];
 
@@ -62,13 +98,25 @@ export default function Boutique() {
                 
                 <div className="mt-auto pt-8 border-t border-zinc-800 flex items-center justify-between">
                   <div className="text-3xl font-black text-white italic tracking-tighter">${item.price}</div>
-                  <a 
-                    href={`mailto:sonja-on-fire@dollhousedeviants.com?subject=Boutique Procurement Request: ${item.name}`}
-                    className="bg-[#FF1E89] hover:bg-white hover:text-black text-white px-8 py-4 rounded-xl text-xs font-black uppercase tracking-[0.2em] transition-all duration-500 shadow-[0_0_15px_rgba(255,30,137,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.6)]"
-                  >
-                    Procure Asset
-                  </a>
+                  {item.checkoutProductId ? (
+                    <CheckoutButton
+                      productId={item.checkoutProductId}
+                      fallbackHref={`mailto:sonja-on-fire@dollhousedeviants.com?subject=Boutique Procurement Request: ${item.name}`}
+                      className="bg-[#FF1E89] hover:bg-white hover:text-black text-white px-8 py-4 rounded-xl text-xs font-black uppercase tracking-[0.2em] transition-all duration-500 shadow-[0_0_15px_rgba(255,30,137,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.6)]"
+                    />
+                  ) : (
+                    <a 
+                      href={`mailto:sonja-on-fire@dollhousedeviants.com?subject=Boutique Procurement Request: ${item.name}`}
+                      className="bg-[#FF1E89] hover:bg-white hover:text-black text-white px-8 py-4 rounded-xl text-xs font-black uppercase tracking-[0.2em] transition-all duration-500 shadow-[0_0_15px_rgba(255,30,137,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.6)]"
+                    >
+                      Procure Asset
+                    </a>
+                  )}
                 </div>
+
+                {item.dust && (
+                  <DustCover statement={item.dust.statement} imageSrc={item.dust.image} />
+                )}
               </div>
             ))}
           </div>

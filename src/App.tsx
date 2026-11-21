@@ -24,11 +24,14 @@ const Support = lazy(() => import('./pages/Support'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
 const Safety = lazy(() => import('./pages/Safety'));
+const TrevorProject = lazy(() => import('./pages/TrevorProject'));
+const Osint = lazy(() => import('./pages/Osint'));
 const UserProfile = lazy(() => import('./pages/UserProfile'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 
 import { ProtectedRoute } from './components/ProtectedRoute';
 import TrevorBanner from './components/TrevorBanner';
+import TrevorToast from './components/TrevorToast';
 import AccessibilityMenu from './components/AccessibilityMenu';
 import ScrollToTop from './components/ScrollToTop';
 import LoadingScreen from './components/LoadingScreen';
@@ -50,6 +53,7 @@ export default function App() {
         <Router>
           <ScrollToTop />
           <TrevorBanner />
+          <TrevorToast />
           <AccessibilityMenu />
           <Suspense fallback={<LoadingScreen />}>
             <Routes>
@@ -73,6 +77,8 @@ export default function App() {
                 </Suspense>
               } />
               <Route path="/creations" element={<Creations />} />
+              {/* Deviant OSINT is free and public — deliberately NOT inside ProtectedRoute (/studio is admin-only). */}
+              <Route path="/osint" element={<Osint />} />
               <Route path="/circuit" element={<Circuit />} />
               <Route path="/echoes" element={<Echoes />} />
               <Route path="/about" element={<About />} />
@@ -82,6 +88,7 @@ export default function App() {
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/safety" element={<Safety />} />
+              <Route path="/trevor-project" element={<TrevorProject />} />
               <Route path="/profile" element={<UserProfile />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>

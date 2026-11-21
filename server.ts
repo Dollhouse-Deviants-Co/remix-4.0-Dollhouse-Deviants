@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express, {
   type NextFunction,
   type Request,
@@ -14,6 +15,11 @@ import {
 } from "firebase-admin/app";
 import { getAuth as getAdminAuth } from "firebase-admin/auth";
 import { rateLimit } from "express-rate-limit";
+import {
+  checkoutConfig,
+  createCheckoutSession,
+  stripeWebhook,
+} from "./src/server/stripe.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -82,10 +88,29 @@ const auditLimiter = rateLimit({
     message: "Too many requests. Try again shortly.",
   },
 });
+
+const checkoutLimiter = rateLimit({
+  windowMs: 60_000,
+  limit: 20,
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+  message: {
+    error: "rate_limited",
+    message: "Too many checkout attempts. Try again shortly.",
+  },
+});
 async function startServer() {
   const app = express();
   app.disable("x-powered-by");
   const PORT = Number(process.env.PORT ?? 8080);
+
+  // Stripe webhook needs the raw body for signature verification, so it
+  // is registered BEFORE the JSON parser below. See src/server/stripe.ts.
+  app.post(
+    "/api/stripe/webhook",
+    express.raw({ type: "application/json", limit: "16kb" }),
+    stripeWebhook,
+  );
 
   // JSON Body Parser for API routes
 app.use(express.json({ limit: "16kb" }));
@@ -187,6 +212,12 @@ app.post(
     }
   },
 );
+  // STRIPE CHECKOUT (Boutique + Supporter). Test mode only for now.
+  // No keys configured => /api/checkout answers 501 and the client keeps
+  // the mailto fallback. No fulfillment is built yet (see stripeWebhook).
+  app.get("/api/checkout/config", checkoutConfig);
+  app.post("/api/checkout", checkoutLimiter, createCheckoutSession);
+
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({

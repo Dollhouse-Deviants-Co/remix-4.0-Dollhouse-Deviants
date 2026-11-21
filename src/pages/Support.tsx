@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
 import CheckoutButton from '../components/CheckoutButton';
 import type { CheckoutProductId } from '../lib/checkoutProducts';
@@ -168,6 +169,15 @@ export default function Support() {
               Subscription funds are allocated directly to platform hosting, trans-rights advocacy through 
               <strong> The Trevor Project</strong>, and the production of exclusive sanctuary content. 
               All transactions are processed securely through Stripe.
+            </p>
+            <p className="text-xs max-w-xl mx-auto leading-relaxed mt-4">
+              <Link to="/trevor-project" className="text-[#FF9030] underline hover:text-white">
+                What is The Trevor Project?
+              </Link>
+              <span className="text-zinc-600"> · </span>
+              <a href="https://give.thetrevorproject.org/campaign/786401/donate" target="_blank" rel="noopener noreferrer" className="text-[#FF9030] underline hover:text-white">
+                Donate to The Trevor Project
+              </a>
             </p>
           </div>
         </section>

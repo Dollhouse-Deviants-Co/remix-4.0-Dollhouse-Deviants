@@ -7,6 +7,35 @@ import Mail from 'lucide-react/dist/esm/icons/mail';
 import { useAuth } from '../context/AuthContext';
 import { RoleGuard, ArchitectBadge, UserRole } from '../components/RoleGuard';
 import { UpgradeModal } from '../components/UpgradeModal';
+import DustCover from '../components/DustCover';
+
+/**
+ * Temporary "Pardon our dust" covers for placeholder Vault items.
+ * Keyed by vault.json item id. Items without an entry stay listed as-is.
+ */
+const VAULT_DUST: Record<number, { statement: string; image: string }> = {
+  1: {
+    statement: 'Pardon our dust — the gallery is still being hung.',
+    image: '/images/pinkie-dust-3.webp',
+  },
+  2: {
+    statement: 'Pardon our dust — the log is still being written.',
+    image: '/images/pinkie-dust-4.webp',
+  },
+  3: {
+    statement: 'Pardon our dust — the footage is still in the cutting room.',
+    image: '/images/pinkie-dust-5.webp',
+  },
+  4: {
+    statement: 'Pardon our dust — the filters are still in the darkroom.',
+    image: '/images/pinkie-dust-6.webp',
+  },
+};
+
+const LIVE_CAM_DUST = {
+  statement: 'Pardon our dust — the stage is still being wired.',
+  image: '/images/pinkie-dust-7.webp',
+};
 
 interface VaultItem {
   id: number;
@@ -136,6 +165,8 @@ export default function Vault() {
                 <Mail size={18} />
                 Secure Access - $45
               </a>
+
+              <DustCover statement={LIVE_CAM_DUST.statement} imageSrc={LIVE_CAM_DUST.image} />
             </div>
           )}
 
@@ -181,7 +212,7 @@ export default function Vault() {
                     </div>
                   }
                 >
-                  <div className="bg-zinc-900/40 border border-zinc-800 rounded-[2rem] p-8 flex flex-col hover:border-[#FF69B4]/50 transition-all duration-500 group h-full hover:shadow-[0_0_30px_rgba(255,105,180,0.15)]">
+                  <div className="bg-zinc-900/40 border border-zinc-800 rounded-[2rem] p-8 flex flex-col hover:border-[#FF69B4]/50 transition-all duration-500 group h-full hover:shadow-[0_0_30px_rgba(255,105,180,0.15)] relative overflow-hidden">
                     <div className="aspect-square bg-black rounded-2xl mb-6 flex items-center justify-center border border-zinc-800 group-hover:bg-zinc-900 transition-colors">
                       <Lock className="text-zinc-800 group-hover:text-[#FF69B4] transition-colors" size={48} />
                     </div>
@@ -203,6 +234,13 @@ export default function Vault() {
                         Contact for Access
                       </a>
                     </div>
+
+                    {VAULT_DUST[item.id] && (
+                      <DustCover
+                        statement={VAULT_DUST[item.id].statement}
+                        imageSrc={VAULT_DUST[item.id].image}
+                      />
+                    )}
                   </div>
                 </RoleGuard>
               ))}

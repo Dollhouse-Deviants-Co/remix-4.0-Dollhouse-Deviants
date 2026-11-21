@@ -25,6 +25,7 @@
     "react-dom": "^19.0.0",
     "react-helmet-async": "^3.0.0",
     "react-router-dom": "^7.14.0",
+    "stripe": "^23.1.0",
     "terser": "^5.46.1"
   },
   "devDependencies": {

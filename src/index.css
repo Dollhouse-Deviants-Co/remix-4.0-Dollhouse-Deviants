@@ -698,6 +698,24 @@ body.light-mode.high-contrast {
   box-shadow: 0 0 15px color-mix(in srgb, var(--cb-accent, #00E5FF) 50%, transparent) !important;
 }
 
+/* The Sensory Suite panel is CSS-resizable on desktop, but the resize
+   handle is invisible and unusable on touch. Never offer it there. */
+@media (pointer: coarse) {
+  .dd-resizable {
+    resize: none !important;
+  }
+}
+
+/* Deviant Multimedia Engine — player focus mode: turns off animations,
+   sliding windows and motion inside the player only. (The site-wide
+   Safe Motion setting already kills motion everywhere via .reduce-motion.) */
+.dme-focus-mode *,
+.dme-focus-mode *::before,
+.dme-focus-mode *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
 /* =========================================
    TYPED COLOR-VISION PALETTES
    Selecting a palette re-palettes the whole UI for that deficiency type.

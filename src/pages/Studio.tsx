@@ -11,7 +11,7 @@ import { db } from '@/lib/firebase';
 
 
 
-const galleryCategories = ["All", "Digital Noir", "Sanctuary", "Experimental"];
+const galleryCategories = ["All", "Digital Noir", "Sanctuary", "Experimental", "Tech / Dev"];
 
 export default function Studio() {
   const [filter, setFilter] = useState("All");
