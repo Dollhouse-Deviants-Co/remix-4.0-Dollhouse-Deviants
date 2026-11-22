@@ -35,7 +35,7 @@ export default function TrevorToast() {
     <div
       role="status"
       aria-live="polite"
-      className="fixed z-[10000] bottom-6 left-6 max-w-sm bg-black border-l-4 border-[#E65100] border-y border-r border-zinc-800 rounded-r-2xl shadow-2xl px-5 py-4"
+      className="fixed z-[10000] bottom-4 left-4 md:bottom-6 md:left-6 max-w-[calc(100vw-2rem)] md:max-w-sm bg-black border-l-4 border-[#E65100] border-y border-r border-zinc-800 rounded-r-2xl shadow-2xl px-4 py-3 md:px-5 md:py-4"
     >
       <div className="flex items-start justify-between gap-4">
         <div>
