@@ -19,7 +19,11 @@ export default function TrevorBanner() {
   const [showInfo, setShowInfo] = useState(false);
 
   return (
-    <div className="fixed z-[9999] bottom-4 right-4 md:bottom-6 md:right-6 flex flex-col items-end gap-1.5 md:gap-2">
+    // data-no-cover="exempt": a deliberate, in-your-face exception to the
+    // No-cover SOP (Sonja, 2026-11-21). The banner is semi-opaque and the
+    // content scrolls out from under it, so it is not counted as a cover —
+    // and she wants the Trevor banner prominent, on purpose.
+    <div data-no-cover="exempt" className="fixed z-[9999] bottom-4 right-4 md:bottom-6 md:right-6 flex flex-col items-end gap-1.5 md:gap-2">
       <a
         href={TREVOR_DONATE_URL}
         target="_blank"

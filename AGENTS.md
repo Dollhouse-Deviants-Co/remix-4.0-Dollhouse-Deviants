@@ -83,6 +83,8 @@ Preserve semantic controls, focus behavior, keyboard/touch access, useful state 
 ## Fixed / overlay elements
 Any `fixed` element (banner, toast, menu, modal) must stay compact on small screens — use the `max-sm:` / `md:` size pattern (see TrevorBanner, AccessibilityMenu) — and must not cover readable content at mobile widths. The page keeps bottom padding (`pb-32` on main) so content can scroll clear of fixed bottom elements. After any change touching a fixed element, verify on a mobile-width viewport that it doesn't cover text.
 
+Exception (Sonja, 2026-11-21): a deliberate, semi-opaque, in-your-face banner is NOT a cover — the content scrolls out from under it, and the semi-opacity lets you see something's underneath. The Trevor banner is the standing example (she wants it in-your-face, on purpose) and carries `data-no-cover="exempt"`, which the no-cover tool skips. This is a one-off for a deliberate prominent CTA, not a loophole — an opaque overlay hiding a button is still a ship-blocker.
+
 ## Brand / UI
 Dark/black foundation + neon pink identity with selective electric blue/cyan/orange/red accents.
 
