@@ -19,7 +19,7 @@ export default function TrevorBanner() {
   const [showInfo, setShowInfo] = useState(false);
 
   return (
-    <div className="fixed z-[9999] bottom-6 right-6 flex flex-col items-end gap-2">
+    <div className="fixed z-[9999] bottom-4 right-4 md:bottom-6 md:right-6 flex flex-col items-end gap-1.5 md:gap-2">
       <a
         href={TREVOR_DONATE_URL}
         target="_blank"
@@ -36,9 +36,9 @@ export default function TrevorBanner() {
         </div>
 
         {/* Orange Badge with Text */}
-        <div className="h-10 flex items-center justify-center gap-2 bg-[#E65100] rounded-full px-5 shadow-[0_0_15px_rgba(230,81,0,0.4)]">
+        <div className="h-9 md:h-10 flex items-center justify-center gap-2 bg-[#E65100] rounded-full px-4 md:px-5 shadow-[0_0_15px_rgba(230,81,0,0.4)]">
           <Heart size={14} className="text-white fill-white animate-pulse" />
-          <span className="text-white font-black text-xs tracking-widest whitespace-nowrap">THE TREVOR PROJECT</span>
+          <span className="text-white font-black text-[11px] md:text-xs tracking-widest whitespace-nowrap">THE TREVOR PROJECT</span>
         </div>
       </a>
 
@@ -47,12 +47,12 @@ export default function TrevorBanner() {
         type="button"
         onClick={() => setShowInfo((v) => !v)}
         aria-expanded={showInfo}
-        className="text-[11px] uppercase tracking-[0.2em] text-[#FF9030] hover:text-white bg-black/80 border border-orange-500/30 rounded-full px-3 py-1.5 backdrop-blur-sm transition-colors"
+        className="text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-[#FF9030] hover:text-white bg-black/80 border border-orange-500/30 rounded-full px-2.5 md:px-3 py-1 md:py-1.5 backdrop-blur-sm transition-colors"
       >
         What <em>IS</em> The Trevor Project?
       </button>
       {showInfo && (
-        <p className="max-w-[240px] text-right text-xs leading-relaxed text-zinc-300 bg-black/80 border border-orange-500/30 rounded-2xl px-4 py-3 backdrop-blur-sm">
+        <p className="max-w-[220px] md:max-w-[240px] text-right text-xs leading-relaxed text-zinc-300 bg-black/80 border border-orange-500/30 rounded-2xl px-4 py-3 backdrop-blur-sm">
           Just what <em>IS</em> &lsquo;The Trevor Project&rsquo; you ask...?{' '}
           <Link to="/trevor-project" className="text-[#FF9030] underline hover:text-white">
             Click here to find out

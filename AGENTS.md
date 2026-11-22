@@ -80,6 +80,9 @@ Accessibility is core functionality.
 
 Preserve semantic controls, focus behavior, keyboard/touch access, useful state descriptions, readable contrast, reduced-motion/sensory support, and non-color-only meaning.
 
+## Fixed / overlay elements
+Any `fixed` element (banner, toast, menu, modal) must stay compact on small screens — use the `max-sm:` / `md:` size pattern (see TrevorBanner, AccessibilityMenu) — and must not cover readable content at mobile widths. The page keeps bottom padding (`pb-32` on main) so content can scroll clear of fixed bottom elements. After any change touching a fixed element, verify on a mobile-width viewport that it doesn't cover text.
+
 ## Brand / UI
 Dark/black foundation + neon pink identity with selective electric blue/cyan/orange/red accents.
 
