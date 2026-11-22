@@ -20,10 +20,7 @@ export default function Footer() {
   const { isSimplifiedMode, toggleSimplifiedMode } = useAccess();
   const { user, loginWithGoogle, logout } = useAuth();
 
-  // 1. Replace 'YOUR_ID_HERE' with the ID you copied from PayPal
-  const paypalId = "AZVCASBGAJ8AL"; 
-  
-  // 2. This is your new, correctly-sized Media Kit direct download link
+  // This is your new, correctly-sized Media Kit direct download link
   const mediaKitUrl = "https://drive.google.com/uc?export=download&id=1a0cLF-MOWv43YIt_XFtTuaiNoZmaEceD";
 
   return (

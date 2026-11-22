@@ -45,8 +45,9 @@ export default function Hub() {
             </div>
 
             <div className="flex-grow text-center md:text-left">
-              <h2 className="text-4xl font-black uppercase text-white tracking-tighter mb-4 italic">
-                Tearing Down <span className="text-cyan-400">The Prison.</span>
+              <h2 className="text-4xl font-black uppercase tracking-tighter mb-4 italic">
+                <span className="glow-shift glow-white glow-s9">Tearing Down</span>{' '}
+                <span className="glow-shift glow-cyan glow-s9">The Prison.</span>
               </h2>
               <p className="text-zinc-400 text-lg font-light leading-relaxed max-w-2xl">
                 Transitioning (MtF) was the moment I stopped building walls and started building doors. This space exists so you never have to curate a version of yourself that the world can digest.
@@ -63,7 +64,7 @@ export default function Hub() {
 
         {/* Header moved just above branches - Changed to H2 to respect SR-Only H1 */}
         <header className="text-center mb-12">
-          <h2 className="text-4xl font-black tracking-tighter uppercase text-white mb-2">The Hub</h2>
+          <h2 className="text-4xl font-black tracking-tighter uppercase mb-2 glow-shift glow-white glow-s9">The Hub</h2>
           <p className="text-zinc-400 font-mono text-xs tracking-[0.5em] uppercase">Choose Your Branch</p>
         </header>
 

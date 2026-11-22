@@ -10,15 +10,21 @@ import { Tooltip } from './Tooltip';
 
 /** Primary site navigation. Mirrors the footer "Explore" list so header,
  *  footer and mobile menu never disagree about where things live. */
-const PRIMARY_NAV: { to: string; label: string; note?: string }[] = [
-  { to: '/', label: 'Home' },
-  { to: '/our-story', label: 'Our Story' },
-  { to: '/studio', label: 'Studio' },
-  { to: '/boutique', label: 'Boutique' },
-  { to: '/circuit', label: 'Circuit' },
-  { to: '/creations', label: 'Creations' },
-  { to: '/echoes', label: 'Echoes' },
-  { to: '/dev-locker', label: 'DEV Locker' },
+/** Section colors for the nav: each item's underline + selected text use
+ *  its branch color (the Hub card hexes). Home is the vivid neon pink
+ *  (#FF1E89, not the dull Pepto #FF69B4); Our Story is Trevor Orange
+ *  #FF8200 with a lemon #FFEA00 gleam in its underline; DEV Locker mint is
+ *  bumped up to #3DF5B8 so it reads. `hex` is the text/shot color,
+ *  `bar` is the underline background. */
+const PRIMARY_NAV: { to: string; label: string; note?: string; hex: string; bar: string }[] = [
+  { to: '/', label: 'Home', hex: '#FF1E89', bar: '#FF1E89' },
+  { to: '/our-story', label: 'Our Story', hex: '#FF8200', bar: 'linear-gradient(90deg, #FFEA00, #FF8200)' },
+  { to: '/studio', label: 'Studio', hex: '#22d3ee', bar: '#22d3ee' },
+  { to: '/boutique', label: 'Boutique', hex: '#4ade80', bar: '#4ade80' },
+  { to: '/circuit', label: 'Circuit', hex: '#FF5F1F', bar: '#FF5F1F' },
+  { to: '/creations', label: 'Creations', hex: '#c084fc', bar: '#c084fc' },
+  { to: '/echoes', label: 'Echoes', hex: '#FF3131', bar: '#FF3131' },
+  { to: '/dev-locker', label: 'DEV Locker', hex: '#3DF5B8', bar: '#3DF5B8' },
 ];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -110,155 +116,173 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Background radial glow - subtle and luxurious */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,105,180,0.03)_0%,_rgba(18,18,18,0)_70%)] pointer-events-none"></div>
 
-      {/* Navigation Landmark - Pushed to top left */}
-      <nav className="z-20 w-full px-4 sm:px-6 py-6 flex flex-wrap justify-between items-center gap-y-4" aria-label="Main Navigation">
-         <div className="flex items-center gap-4 sm:gap-6">
-           <a href="/" className="flex items-center gap-4 text-white text-4xl hover:text-[#FF69B4] transition-colors duration-500">
-             <img referrerPolicy="no-referrer"
-               src="/dd-sfw-logo-no-main.webp"
-               alt="Dollhouse Deviants Logo"
-               width="80"
-               height="80"
-               fetchPriority="high"
-               loading="eager"
-               decoding="async"
-               className="h-20 w-auto rounded-sm object-contain shadow-[0_0_15px_rgba(255,105,180,0.15)]"
-             />
-             <span className="uppercase font-sans font-bold italic underline decoration-zinc-800 tracking-tighter hidden md:inline-block glow-shift glow-pink glow-s9">Dollhouse Deviants</span>
-           </a>
-           
-           {/* Site-wide Core Values Symbols */}
-           <div className="flex items-center gap-3 pl-4 sm:pl-6 border-l border-zinc-800">
-             <Tooltip content="Neurodiversity">
-               <svg
-                 role="img"
-                 aria-label="Neurodiversity Affirming"
-                 width="48"
-                 height="48"
-                 viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="#FF69B4"
-                 strokeWidth="2.5"
-                 strokeLinecap="round"
-                 strokeLinejoin="round"
-                 className="h-12 w-12 hover:scale-110 hover:shadow-[0_0_20px_rgba(255,105,180,0.3)] transition-all duration-300 sharp-icon"
-               >
-                 <path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z" />
-               </svg>
-             </Tooltip>
-             <Tooltip content="Transgender Affirming">
-               <img referrerPolicy="no-referrer" 
-                 src="/trans-symbol.webp" 
-                 alt="Transgender Affirming"
-                 width="48"
-                 height="48"
-                 className="h-12 w-12 object-contain hover:scale-110 hover:shadow-[0_0_20px_rgba(255,105,180,0.5)] transition-all duration-300 sharp-icon" 
-                 onError={(e) => {
-                   e.currentTarget.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23FF69B4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 17v5"/><path d="M9 20h6"/><path d="m15 9 5-5"/><path d="M20 8V4h-4"/><path d="m9 9-5-5"/><path d="M4 8V4h4"/><path d="m5 5 3 3"/></svg>`;
-                 }}
-               />
-             </Tooltip>
-             <Tooltip content="Highly Accessible">
-               <img referrerPolicy="no-referrer" 
-                 src="/accessibility-a11y.webp" 
-                 alt="Accessibility Prioritized"
-                 width="48"
-                 height="48"
-                 className="h-12 w-12 object-contain invert hue-rotate-180 brightness-200 hover:scale-110 drop-shadow-[0_0_5px_rgba(255,105,180,0.3)] hover:drop-shadow-[0_0_15px_rgba(255,105,180,0.8)] transition-all duration-300 sharp-icon" 
-                 onError={(e) => {
-                   e.currentTarget.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M18 8c0-.5-.4-1-1-1H7c-.6 0-1 .5-1 1"/><path d="M12 2v6"/><path d="M12 15V8"/><path d="m6 20 4-5"/><path d="m18 20-4-5"/></svg>`;
-                 }}
-               />
-             </Tooltip>
-           </div>
-         </div>
-         
-         {/* Primary navigation: inline links on desktop, disclosure menu on phone/tablet */}
-         <ul className="hidden lg:flex items-center gap-5 xl:gap-6" aria-label="Primary">
-           {PRIMARY_NAV.map((item) => (
-             <li key={item.to}>
-               <NavLink
-                 to={item.to}
-                 end={item.to === '/'}
-                 className={({ isActive }) =>
-                   `text-xs font-bold uppercase tracking-[0.2em] transition-colors ${
-                     isActive ? 'text-[#FF69B4] underline underline-offset-8 decoration-2' : 'text-zinc-300 hover:text-white'
-                   }`
-                 }
-               >
-                 {item.label}
-                 {item.note ? <span className="ml-1 text-[10px] italic normal-case tracking-normal text-zinc-500">({item.note})</span> : null}
-               </NavLink>
-             </li>
-           ))}
-         </ul>
+      {/* Navigation Landmark - two-row header: brand row on top, nav separator below */}
+      <nav className="z-20 w-full px-4 sm:px-6 py-6 flex flex-col gap-5" aria-label="Main Navigation">
+        {/* Row 1: brand (larger) on the left; badges, controls and the logged-in user on the right */}
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-4 sm:gap-6">
+            <a href="/" className="flex items-center gap-4 text-white hover:text-[#FF69B4] transition-colors duration-500">
+              <img referrerPolicy="no-referrer"
+                src="/dd-sfw-logo-no-main.webp"
+                alt="Dollhouse Deviants Logo"
+                width="112"
+                height="112"
+                fetchPriority="high"
+                loading="eager"
+                decoding="async"
+                className="h-24 lg:h-28 w-auto rounded-sm object-contain shadow-[0_0_15px_rgba(255,105,180,0.15)]"
+              />
+              <span className="uppercase font-sans font-bold italic underline decoration-zinc-800 tracking-tighter hidden md:inline-block glow-shift glow-pink glow-s11 text-5xl lg:text-6xl">Dollhouse Deviants</span>
+            </a>
+          </div>
 
-         <div className="flex items-center gap-4 sm:gap-6">
-           {/* Mobile menu button: real button, labelled, focus-visible, Escape closes */}
-           <button
-             ref={menuButtonRef}
-             type="button"
-             className="lg:hidden flex items-center justify-center w-11 h-11 rounded-xl border border-zinc-800 bg-zinc-900 text-zinc-300 hover:border-[#FF69B4]/50 hover:text-white transition-colors"
-             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-             aria-expanded={mobileMenuOpen}
-             aria-controls="dd-primary-menu"
-             onClick={() => setMobileMenuOpen((v) => !v)}
-           >
-             {mobileMenuOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
-           </button>
-
-           <AccessibilityToggle />
-           
-           {/* INSIDE YOUR PROFILE/NAVBAR SECTION */}
-           <div className="flex items-center gap-4 pl-4 sm:pl-6 border-l border-zinc-800">
-             {currentUser ? (
-               <>
-                 <div className="text-right hidden md:block">
-                   <Nameplate 
-                     name={currentUser.displayName || 'Sonja (Founder)'} 
-                     role={(currentUser as any).role || 'architect'} 
-                     className="text-sm justify-end"
-                   />
-                   <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 mt-1">
-                     System Status: Online
-                   </p>
-                 </div>
-                 
-                 <Tooltip content="Manage Identity" position="bottom">
-                   <Link
-                     to="/profile"
-                     aria-label="View your profile"
-                     className="w-14 h-14 shrink-0 rounded-full border border-[#FF69B4]/20 overflow-hidden relative group shadow-[0_0_15px_rgba(255,105,180,0.15)] transition-all duration-700 hover:border-[#FF69B4]/50 block"
-                   >
-                     <img referrerPolicy="no-referrer"
-                       src="/Sonja-Profile-Picture.webp"
-                       alt="User Avatar"
-                       className="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-1000"
-                       onError={(e) => {
-                         e.currentTarget.src = `https://ui-avatars.com/api/?name=${currentUser.displayName || 'User'}&background=FF69B4&color=fff&bold=true`;
-                       }}
-                     />
-                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#FF69B4]/20 to-transparent h-1 w-full animate-scan-slow pointer-events-none" />
-                   </Link>
-                 </Tooltip>
-               </>
-             ) : (
-               <Tooltip content="System Login" position="bottom">
-                  <button className="flex items-center gap-3 group cursor-pointer w-full text-left" aria-label="Log into system" onClick={loginWithGoogle}>
-                 <div className="text-right hidden md:block">
-                   <p className="text-sm tracking-widest text-zinc-400 font-bold uppercase group-hover:text-[#FF69B4] transition-colors">Log In</p>
-                   <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 mt-1">
-                     System Status: Offline
-                   </p>
-                 </div>
-                 <div className="w-14 h-14 shrink-0 rounded-full border border-zinc-800 border-dashed flex items-center justify-center text-zinc-400 group-hover:border-[#FF69B4] group-hover:text-[#FF69B4] transition-all bg-zinc-900/50">
-                    <span className="text-sm tracking-widest font-black uppercase">?</span>
-                 </div>
-                </button>
+          <div className="flex items-center gap-4 sm:gap-6">
+            {/* Site-wide Core Values Symbols */}
+            <div className="flex items-center gap-3">
+              <Tooltip content="Neurodiversity">
+                <span className="flex flex-col items-center gap-1">
+                  <svg
+                    role="img"
+                    aria-label="Neurodiversity Affirming"
+                    width="48"
+                    height="48"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="url(#infPink)"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-12 w-12 hover:scale-110 transition-all duration-300 drop-shadow-[0_0_8px_rgba(255,30,137,0.45)] sharp-icon"
+                  >
+                    <defs>
+                      <linearGradient id="infPink" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#a31356" />
+                        <stop offset="50%" stopColor="#e91a7c" />
+                        <stop offset="100%" stopColor="#FF1E89" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z" />
+                  </svg>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-300">Neurodiversity</span>
+                </span>
               </Tooltip>
-             )}
-           </div>
-         </div>
+              <Tooltip content="Transgender Affirming">
+                <img referrerPolicy="no-referrer"
+                  src="/trans-symbol.webp"
+                  alt="Transgender Affirming"
+                  width="48"
+                  height="48"
+                  className="h-12 w-12 object-contain hover:scale-110 hover:shadow-[0_0_20px_rgba(255,105,180,0.5)] transition-all duration-300 sharp-icon"
+                  onError={(e) => {
+                    e.currentTarget.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23FF69B4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 17v5"/><path d="M9 20h6"/><path d="m15 9 5-5"/><path d="M20 8V4h-4"/><path d="m9 9-5-5"/><path d="M4 8V4h4"/><path d="m5 5 3 3"/></svg>`;
+                  }}
+                />
+              </Tooltip>
+              <Tooltip content="Highly Accessible">
+                <img referrerPolicy="no-referrer"
+                  src="/accessibility-a11y.webp"
+                  alt="Accessibility Prioritized"
+                  width="48"
+                  height="48"
+                  className="h-12 w-12 object-contain invert hue-rotate-180 brightness-200 hover:scale-110 drop-shadow-[0_0_5px_rgba(255,105,180,0.3)] hover:drop-shadow-[0_0_15px_rgba(255,105,180,0.8)] transition-all duration-300 sharp-icon"
+                  onError={(e) => {
+                    e.currentTarget.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M18 8c0-.5-.4-1-1-1H7c-.6 0-1 .5-1 1"/><path d="M12 2v6"/><path d="M12 15V8"/><path d="m6 20 4-5"/><path d="m18 20-4-5"/></svg>`;
+                  }}
+                />
+              </Tooltip>
+            </div>
+            {/* Mobile menu button: real button, labelled, focus-visible, Escape closes */}
+            <button
+              ref={menuButtonRef}
+              type="button"
+              className="lg:hidden flex items-center justify-center w-11 h-11 rounded-xl border border-zinc-800 bg-zinc-900 text-zinc-300 hover:border-[#FF69B4]/50 hover:text-white transition-colors"
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="dd-primary-menu"
+              onClick={() => setMobileMenuOpen((v) => !v)}
+            >
+              {mobileMenuOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
+            </button>
+
+            <AccessibilityToggle />
+           
+            {/* INSIDE YOUR PROFILE/NAVBAR SECTION */}
+            <div className="flex items-center gap-4 pl-4 sm:pl-6 border-l border-zinc-800">
+              {currentUser ? (
+                <>
+                  <div className="text-right hidden md:block">
+                    <Nameplate 
+                      name={currentUser.displayName || 'Sonja (Founder)'} 
+                      role={(currentUser as any).role || 'architect'} 
+                      className="text-sm justify-end"
+                    />
+                    <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 mt-1">
+                      System Status: Online
+                    </p>
+                  </div>
+                 
+                  <Tooltip content="Manage Identity" position="bottom">
+                    <Link
+                      to="/profile"
+                      aria-label="View your profile"
+                      className="w-14 h-14 shrink-0 rounded-full border border-[#FF69B4]/20 overflow-hidden relative group shadow-[0_0_15px_rgba(255,105,180,0.15)] transition-all duration-700 hover:border-[#FF69B4]/50 block"
+                    >
+                      <img referrerPolicy="no-referrer"
+                        src="/Sonja-Profile-Picture.webp"
+                        alt="User Avatar"
+                        className="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-1000"
+                        onError={(e) => {
+                          e.currentTarget.src = `https://ui-avatars.com/api/?name=${currentUser.displayName || 'User'}&background=FF69B4&color=fff&bold=true`;
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#FF69B4]/20 to-transparent h-1 w-full animate-scan-slow pointer-events-none" />
+                    </Link>
+                  </Tooltip>
+                </>
+              ) : (
+                <Tooltip content="System Login" position="bottom">
+                   <button className="flex items-center gap-3 group cursor-pointer w-full text-left" aria-label="Log into system" onClick={loginWithGoogle}>
+                  <div className="text-right hidden md:block">
+                    <p className="text-sm tracking-widest text-zinc-400 font-bold uppercase group-hover:text-[#FF69B4] transition-colors">Log In</p>
+                    <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 mt-1">
+                      System Status: Offline
+                    </p>
+                  </div>
+                  <div className="w-14 h-14 shrink-0 rounded-full border border-zinc-800 border-dashed flex items-center justify-center text-zinc-400 group-hover:border-[#FF69B4] group-hover:text-[#FF69B4] transition-all bg-zinc-900/50">
+                     <span className="text-sm tracking-widest font-black uppercase">?</span>
+                  </div>
+                 </button>
+               </Tooltip>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Row 2: primary navigation as a separator, larger; each item in its branch color.
+            The underline is always the item's color; the selected item's text turns that
+            color too; on hover/focus/tap a shot of the color fires right along the bar. */}
+        <ul className="hidden lg:flex items-center gap-6 xl:gap-8 border-t border-zinc-800 pt-4" aria-label="Primary">
+          {PRIMARY_NAV.map((item) => (
+            <li key={item.to}>
+              <NavLink
+                to={item.to}
+                end={item.to === '/'}
+                style={({ isActive }) => ({ color: isActive ? item.hex : undefined, '--nav-hex': item.hex } as React.CSSProperties)}
+                className={({ isActive }) =>
+                  `nav-link text-sm font-bold uppercase tracking-[0.2em] transition-colors inline-flex flex-col gap-1.5 ${
+                    isActive ? '' : 'text-zinc-300 hover:text-white'
+                  }`
+                }
+              >
+                <span>{item.label}{item.note ? <span className="ml-1 text-[10px] italic normal-case tracking-normal text-zinc-500">({item.note})</span> : null}</span>
+                <span className="nav-underline" aria-hidden="true">
+                  <span className="nav-bar" style={{ background: item.bar }} />
+                  <span className="nav-shot" />
+                </span>
+              </NavLink>
+            </li>
+          ))}
+        </ul>
 
          {/* Mobile primary menu: full-width real layout for phone/tablet, not a
              scaled-down desktop bar. Inside the nav landmark so Focus Mode
@@ -273,9 +297,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                      to={item.to}
                      end={item.to === '/'}
                      onClick={() => setMobileMenuOpen(false)}
-                     className={({ isActive }) =>
+                     style={({ isActive }) => ({
+                      color: isActive ? item.hex : undefined,
+                      backgroundColor: isActive ? `${item.hex}1A` : undefined,
+                    })}
+                    className={({ isActive }) =>
                        `block w-full rounded-lg px-4 py-3 text-sm font-bold uppercase tracking-[0.2em] transition-colors ${
-                         isActive ? 'bg-[#FF69B4]/10 text-[#FF69B4]' : 'text-zinc-200 hover:bg-zinc-900 hover:text-white'
+                         isActive ? '' : 'text-zinc-200 hover:bg-zinc-900 hover:text-white'
                        }`
                      }
                    >

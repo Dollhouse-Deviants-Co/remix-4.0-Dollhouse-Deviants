@@ -1498,3 +1498,30 @@ body.high-contrast .text-glow {
   -webkit-text-fill-color: currentColor;
   text-shadow: none !important;
 }
+
+/* Nav underline shot (Nov 21): each nav item's underline is its branch
+   color; on hover/focus/tap a shot of that color fires right along the bar,
+   the same shot-trace language as the Hub cards. --nav-hex is set per item
+   by the NavLink's inline style; the class default is the brand pink. */
+.nav-link { --nav-hex: #FF69B4; }
+.nav-underline { position: relative; display: block; height: 8px; overflow: hidden; }
+.nav-bar { position: absolute; top: 3px; left: 0; right: 0; height: 2px; }
+.nav-shot {
+  position: absolute; top: 0; left: -35%; width: 35%; height: 8px;
+  background: radial-gradient(ellipse at center, #fff 0%, var(--nav-hex) 45%, transparent 75%);
+  opacity: 0; pointer-events: none;
+}
+.nav-link:hover .nav-shot,
+.nav-link:focus-visible .nav-shot,
+.nav-link:active .nav-shot {
+  animation: nav-shoot 0.65s cubic-bezier(0.2, 0.6, 0.4, 1) forwards;
+}
+@keyframes nav-shoot {
+  from { left: -35%; opacity: 1; }
+  to { left: 105%; opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-link:hover .nav-shot,
+  .nav-link:focus-visible .nav-shot,
+  .nav-link:active .nav-shot { animation: none; }
+}
