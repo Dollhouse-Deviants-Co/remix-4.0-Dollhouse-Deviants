@@ -132,11 +132,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 decoding="async"
                 className="h-24 lg:h-28 w-auto rounded-sm object-contain shadow-[0_0_15px_rgba(255,105,180,0.15)]"
               />
-              <span className="uppercase font-sans font-bold italic underline decoration-zinc-800 tracking-tighter hidden md:inline-block glow-shift glow-pink glow-s11 text-5xl lg:text-6xl">Dollhouse Deviants</span>
+              <span className="uppercase font-sans font-bold italic underline decoration-zinc-800 tracking-tighter hidden md:inline-block glow-shift glow-pink glow-s11 text-5xl 2xl:text-6xl pr-2">Dollhouse Deviants</span>
             </a>
           </div>
 
-          <div className="flex items-center gap-4 sm:gap-6">
+          <div className="flex items-center gap-4 sm:gap-6 ml-auto">
             {/* Site-wide Core Values Symbols */}
             <div className="flex items-center gap-3">
               <Tooltip content="Neurodiversity">
@@ -261,7 +261,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         {/* Row 2: primary navigation as a separator, larger; each item in its branch color.
             The underline is always the item's color; the selected item's text turns that
             color too; on hover/focus/tap a shot of the color fires right along the bar. */}
-        <ul className="hidden lg:flex items-center gap-6 xl:gap-8 border-t border-zinc-800 pt-4" aria-label="Primary">
+        <ul className="hidden lg:flex items-center justify-between w-full border-t border-zinc-800 pt-4" aria-label="Primary">
           {PRIMARY_NAV.map((item) => (
             <li key={item.to}>
               <NavLink

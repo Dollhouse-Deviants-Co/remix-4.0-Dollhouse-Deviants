@@ -1210,6 +1210,11 @@ body.light-mode.cb-achromatopsia [class*="radial-gradient"] {
 
 /* Base: apply the tier gradient, clipped inside the glyphs. */
 .glow-shift {
+  /* Solid ink under the gradient: if the gradient fails to paint on a
+     browser (mobile Brave has done this to the white ramp), the glyphs
+     fall back to solid ink instead of vanishing. The gradient, when it
+     paints, sits on top of this and hides it. */
+  background-color: var(--glow-ink, currentColor);
   background-image: var(--glow-gradient, radial-gradient(circle at 72% 26%,
     var(--glow-bright) 0 11.2%,
     var(--glow-mid) 11.2% 22.3%,
@@ -1232,6 +1237,7 @@ body.light-mode.cb-achromatopsia [class*="radial-gradient"] {
 @supports not ((background-clip: text) or (-webkit-background-clip: text)) {
   .glow-shift {
     background-image: none;
+    background-color: transparent;
     color: var(--glow-ink, currentColor);
     -webkit-text-fill-color: var(--glow-ink, currentColor);
   }
@@ -1380,6 +1386,7 @@ body.light-mode.cb-achromatopsia [class*="radial-gradient"] {
 .glow-cb-cool,
 .glow-cb-warm,
 .glow-cb-violet {
+  background-color: var(--glow-ink, currentColor);
   background-image: var(--glow-gradient, radial-gradient(circle at 72% 26%,
     var(--glow-bright) 0 11.2%,
     var(--glow-mid) 11.2% 22.3%,
@@ -1400,6 +1407,7 @@ body.light-mode.cb-achromatopsia [class*="radial-gradient"] {
 /* Legacy name: .text-glow was a magenta text-shadow. It is now the
    inside-shift pink glow, same class name, no blur, no outline. */
 .text-glow {
+  background-color: var(--glow-ink, currentColor);
   background-image: var(--glow-gradient, radial-gradient(circle at 72% 26%,
     var(--glow-bright) 0 11.2%,
     var(--glow-mid) 11.2% 22.3%,
@@ -1485,6 +1493,7 @@ body.cb-achromatopsia .glow-cb-cool,
 body.cb-achromatopsia .glow-cb-warm,
 body.cb-achromatopsia .glow-cb-violet {
   background-image: none;
+  background-color: transparent;
   color: var(--cb-ink, #ffffff);
   -webkit-text-fill-color: var(--cb-ink, #ffffff);
   text-shadow: none !important;
@@ -1494,6 +1503,7 @@ body.cb-achromatopsia .glow-cb-violet {
 body.high-contrast .glow-shift,
 body.high-contrast .text-glow {
   background-image: none;
+  background-color: transparent;
   color: inherit;
   -webkit-text-fill-color: currentColor;
   text-shadow: none !important;
